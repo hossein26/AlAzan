@@ -8,19 +8,28 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -28,12 +37,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,121 +60,123 @@ import com.example.alazan.ui.theme.AlAzanTheme
 @Composable
 fun Intro1(modifier: Modifier = Modifier) {
     AlAzanTheme {
-        AlAzanTheme {
-            Box(
-                modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.background),
-            ) {
+
+        val configuration = LocalConfiguration.current
+        val screenHeight = configuration.screenHeightDp.dp
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Box {
                 Image(
-                    painter = painterResource(R.drawable.mosque_illustration_1),
-                    contentDescription = "",
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(top = 34.dp),
-                    contentScale = ContentScale.Crop
+                        .height(screenHeight * 0.75f)
+                        .padding(top = 30.dp),
+                    painter = painterResource(R.drawable.mosque_illustration_1),
+                    contentDescription = "",
+                    contentScale = ContentScale.Fit
                 )
-                Column(
-                    Modifier
-                        .fillMaxSize()
-                        .padding(top = 60.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = "Welcome to",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = modifier
-                            .wrapContentHeight(align = Alignment.CenterVertically)
-                    )
-                    Text(
-                        text = "Al Azan App",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = TextStyle(
-                            fontSize = 45.sp,
-                            fontWeight = FontWeight.Bold,
-                            shadow = Shadow(
-                                blurRadius = 3f
-                            )
-                        ),
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-
-                }
-
-                Image(
-                    painter = painterResource(R.drawable.ellipse_3),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
+                Text(
+                    text = "Welcome to",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = modifier
+                        .padding(top = 50.dp)
                         .fillMaxWidth(),
-                    contentScale = ContentScale.FillWidth
+                    textAlign = TextAlign.Center
                 )
+                Text(
+                    text = "Al Azan App",
+                    color = Color.White,
+                    style = TextStyle(
+                        fontSize = 45.sp,
+                        fontWeight = FontWeight.Bold,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.3f),
+                            offset = Offset(0f, 2f),
+                            blurRadius = 3f
+                        )
+                    ),
+                    modifier = modifier
+                        .padding(top = 85.dp)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
 
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 80.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Choose Your Language",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(bottom = 5.dp)
+
+            Text(
+                text = "Choose Your Language",
+                color = MaterialTheme.colorScheme.onPrimary,
+                textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    shadow = Shadow(
+                        color = Color.Black.copy(alpha = 0.3f),
+                        offset = Offset(0f, 2f),
+                        blurRadius = 3f
                     )
-                    SimpleDropdownMenu()
-                    StartedButton(modifier = Modifier.padding(bottom = 12.dp, top = 45.dp))
-                    TextButton(
-                        onClick = {
+                ),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(align = Alignment.CenterVertically)
+                    .offset(y = -60.dp)
+            )
+            SimpleDropdownMenu()
+            StartedButton()
+            Spacer(
+                Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+            )
+            TextButton(
+                onClick = {
 
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        modifier = Modifier
-                            .requiredHeight(height = 40.dp)
-                            .requiredWidth(width = 153.dp)
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                modifier = modifier
+                    .requiredHeight(height = 40.dp)
+                    .requiredWidth(width = 153.dp)
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = modifier
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(
+                            8.dp,
+                            Alignment.CenterHorizontally
+                        ),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = modifier
+                            .fillMaxSize()
                     ) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(
-                                    8.dp,
-                                    Alignment.CenterHorizontally
-                                ),
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                            ) {
-                                Text(
-                                    text = "Skip",
-                                    color = Color.White,
-                                    textAlign = TextAlign.Center,
-                                    lineHeight = 1.43.em,
-                                    style = MaterialTheme.typography.labelLarge,
-                                    modifier = Modifier
-                                        .wrapContentHeight(align = Alignment.CenterVertically)
-                                )
-                            }
-                        }
+                        Text(
+                            text = "Skip",
+                            color = Color.White,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = modifier
+                                .wrapContentHeight(align = Alignment.CenterVertically)
+                        )
                     }
-
                 }
             }
         }
     }
-
 }
 
+
+@Preview(device = "id:small_phone")
+@Composable
+private fun Intro1Preview() {
+    Intro1()
+}
 
 @Composable
 fun SimpleDropdownMenu() {
@@ -175,6 +189,7 @@ fun SimpleDropdownMenu() {
             .padding(8.dp)
             .requiredWidth(272.dp)
             .requiredHeight(40.dp)
+            .offset(y = -60.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -193,6 +208,7 @@ fun SimpleDropdownMenu() {
                 style = MaterialTheme.typography.labelLarge.copy(MaterialTheme.colorScheme.onPrimary)
             )
             Icon(
+                tint = Color.White,
                 painter = painterResource(
                     id = if (expanded) {
                         R.drawable.arrow_drop_up
@@ -236,17 +252,13 @@ fun SimpleDropdownMenu() {
 @Composable
 fun StartedButton(modifier: Modifier = Modifier) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(1.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .requiredWidth(153.dp)
             .requiredHeight(56.dp)
             .clip(shape = RoundedCornerShape(100.dp))
             .background(color = Color(0xffecc622))
-            .padding(
-                horizontal = 16.dp,
-                vertical = 8.dp
-            )
             .clickable { }
     ) {
         Row(
@@ -272,14 +284,3 @@ fun StartedButton(modifier: Modifier = Modifier) {
         }
     }
 }
-
-
-@Preview()
-@Composable
-private fun IntroPreview() {
-    AlAzanTheme {
-        Intro1()
-    }
-
-}
-
