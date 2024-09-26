@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.alazan.ui.intro.Intro1
 import com.example.alazan.ui.intro.Intro2
 import com.example.alazan.ui.theme.AlAzanTheme
 
