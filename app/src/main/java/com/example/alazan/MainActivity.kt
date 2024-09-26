@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.alazan.ui.intro.Intro1
+import com.example.alazan.ui.intro.Intro2
 import com.example.alazan.ui.theme.AlAzanTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
             AlAzanTheme {
-                Intro1()
+                Intro2()
             }
         }
     }
