@@ -12,28 +12,67 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = Color(0xFF76D5D8),
+    onPrimary = Color(0xFF003738),
+    primaryContainer = Color(0xFF008083),
+    onPrimaryContainer = Color(0xFFFFFFFF),
+
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    secondaryContainer = Color(0xFF224445),
+    onSecondaryContainer = Color(0xFFB6DADA),
+
+    tertiary = Color(0xFF705D00),
+    tertiaryContainer = Color(0xFFDDB90B),
+    onTertiaryContainer = Color(0xFF382D00),
+
+    onTertiary = Color(0xFFFFE175),
+
+    onSurface = Color(0xFFDFE3E3),
+    surfaceVariant = Color(0xFF3E4949),
+    surfaceContainer = Color(0xFF262B2B),
+    onSurfaceVariant = Color(0xFFBDC9C9),
+
+    background = Color(0xFF101414),
+
+    outline = Color(0xFF879393),
+    error = Color(0xFFF87363),
+
+    inversePrimary = Color(0xFF008083),
+    inverseSurface = Color(0xFF262B2B)
+
+
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = primaryColor,
-    onPrimaryContainer = onPrimaryColor,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-    background = primaryColor,
+    primary = Color(0xFF00585A),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFF008083),
+    onPrimaryContainer = Color(0xFFFFFFFF),
+
+    secondary = textColor,
+    secondaryContainer = Color(0xFFC9EDEE),
+    onSecondaryContainer = Color(0xFF2E5051),
+
+    tertiary = Color(0xFF705D00),
+    tertiaryContainer = Color(0xFFECC622),
+    onTertiaryContainer = Color(0xFF443700),
+
+    onTertiary = Color(0xFFFFE175),
+
+    surfaceContainer = Color(0xFFEBEFEE),
+    surfaceVariant = surfaceVariant,
+    onSurfaceVariant = onSurfaceVariant,
+    onSurface = Color(0xFF181C1C),
+
+    background = Color(0xFFFDFDFD),
     onBackground = onPrimaryColor,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    error = Color(0xFFBA1A1A),
+    outline = Color(0xFF6E7979),
+
+
+    inversePrimary = Color(0xFF008083),
+    inverseSurface = Color(0xFF00585A)
 )
 
 @Composable
@@ -41,7 +80,7 @@ fun AlAzanTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {

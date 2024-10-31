@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Al Azan</string>
+    <string name="reminders">Reminders</string>
+    <string name="reminders_label">15 min Before Maghrib</string>
+    <string name="reminders_text">Ayat Al-Korsi</string>
+    <string name="onlyOnce">Only Once</string>
+    <string name="weekDays">Monday, Sunday,\nWednesday, Saturday,\nThursday</string>
+    <string name="everyday">Everyday</string>
 </resources>

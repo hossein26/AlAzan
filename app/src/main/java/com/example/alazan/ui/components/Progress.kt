@@ -7,15 +7,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Progress0(modifier: Modifier = Modifier) {
+fun Progress(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -43,7 +43,7 @@ fun Progress0(modifier: Modifier = Modifier) {
                             .fillMaxWidth()
                             .requiredHeight(height = 4.dp)
                             .clip(shape = RoundedCornerShape(8.dp))
-                            .background(color = Color(0xff705d00))
+                            .background(color = MaterialTheme.colorScheme.tertiary)
                     )
                 }
             }
@@ -57,7 +57,7 @@ fun Progress0(modifier: Modifier = Modifier) {
                         .align(alignment = Alignment.Center)
                         .requiredSize(size = 4.dp)
                         .clip(shape = RoundedCornerShape(26.dp))
-                        .background(color = Color(0xffecc622))
+                        .background(color = MaterialTheme.colorScheme.tertiaryContainer)
                 )
             }
         }
