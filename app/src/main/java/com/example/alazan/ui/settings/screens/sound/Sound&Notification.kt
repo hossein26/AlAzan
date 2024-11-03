@@ -261,7 +261,9 @@ fun Sound(navController: NavController, modifier: Modifier = Modifier) {
                             Spacer(modifier = modifier.padding(4.dp))
                             Column {
                                 azanNotifList.forEach { item ->
-                                    AzanAndNotifItem(item)
+                                    AzanAndNotifItem(item){
+
+                                    }
                                 }
                             }
                             Spacer(modifier = modifier.padding(4.dp))

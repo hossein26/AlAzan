@@ -119,7 +119,7 @@ fun Backup(navController: NavController, modifier: Modifier = Modifier) {
                     Text(
                         text = "You can create a backup file from settings you already implemented and restore them any time.\n" +
                                 "\n" +
-                                "  .  Note that Custom sounds and muezzins will not be exported",
+                                "• Note that Custom sounds and muezzins will not be \n   exported",
                         modifier
                             .padding(8.dp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,

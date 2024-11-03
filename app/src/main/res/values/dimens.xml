@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding sizes -->
+    <dimen name="padding_extra_small">2dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_extra_large">32dp</dimen>
+    <dimen name="padding_extra_extra_large">64dp</dimen>"
+
+    <!-- Specific padding for components -->
+    <dimen name="padding_card">16dp</dimen>
+    <dimen name="padding_horizontal">12dp</dimen>
+    <dimen name="padding_vertical">8dp</dimen>
+
+    <dimen name="shadow_elevation_medium">4dp</dimen>
+    <dimen name="shadow_elevation_high">6dp</dimen>
+
+    <dimen name="spacer_extra_small">2dp</dimen>
+    <dimen name="spacer_small">4dp</dimen>
+    <dimen name="spacer_medium">8dp</dimen>
+    <dimen name="spacer_large">16dp</dimen>
+    <dimen name="spacer_extra_large">32dp</dimen>
+    <dimen name="spacer_extra_extra_large">64dp</dimen>"
+
+</resources>

@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -35,44 +36,46 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
+import com.example.alazan.general_components.Navigation.INTRO_2
+import com.example.alazan.general_components.Navigation.MAIN_SCREEN
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.components.SkipSetupDialog
 import com.example.alazan.ui.components.SmplDropdownMenu
 import com.example.alazan.ui.theme.AlAzanTheme
 
+@Preview
 @Composable
-fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
+fun Intro1(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
 
     var showSkipDialog by remember { mutableStateOf(false) }
-    var timeLeft by remember { mutableStateOf(3) }
-
+    var timeLeft by remember { mutableIntStateOf(3) }
 
     if (showSkipDialog){
         SkipSetupDialog(
             onSkip = {
-                //showSkipDialog = false // Perform skip action
-                // Additional actions for skip
+                navController.navigate(MAIN_SCREEN)
+                showSkipDialog = false
             },
             onCancel = {
-                showSkipDialog = false // Dismiss dialog
+                showSkipDialog = false
             }
         )
     }
 
-
-
     AlAzanTheme {
-        val configuration = LocalConfiguration.current
+        //gradiant background
         val gradientBrush = Brush.linearGradient(
-            colors = listOf(Color(0xFF00585A), Color(0xFFFFF176)), // Colors in the gradient
+            colors = listOf(MaterialTheme.colorScheme.surfaceTint, MaterialTheme.colorScheme.onTertiary), // Colors in the gradient
             start = androidx.compose.ui.geometry.Offset(0f, 0f), // Starting point
             end = androidx.compose.ui.geometry.Offset(0f, 10000f) // Ending point
         )
@@ -87,27 +90,24 @@ fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
                         .fillMaxSize()
                         .background(gradientBrush)
                         .offset(y = 16.dp)
-
                 ) {
                     Text(
-                        text = "Welcome to",
+                        text = stringResource(R.string.welcome_to),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight(400)
-                        ),
+                        style = MaterialTheme.typography.headlineMedium,
                         modifier = modifier
                             .padding(top = 50.dp)
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "Al Azan App",
+                        text = stringResource(R.string.al_azan_app),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         style = MaterialTheme.typography.displayMedium.copy(
                             fontWeight = FontWeight(700)
                         ),
                         modifier = modifier
-                            .padding(top = 8.dp)
+                            .padding(top = dimensionResource(R.dimen.padding_medium))
                             .fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
@@ -116,22 +116,22 @@ fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
                             .align(Alignment.CenterHorizontally)
                             .width(244.dp)
                             .height(311.dp)
-                            .padding(top = 12.dp),
+                            .padding(top = dimensionResource(R.dimen.padding_medium)),
                         painter = painterResource(R.drawable.mosque_img),
                         contentDescription = "",
                         contentScale = ContentScale.Fit
                     )
 
                 }
-                Spacer(Modifier.shadow(elevation = 4.dp).fillMaxWidth().height(0.5.dp).background(Color(0xFF00585A)))
+                Spacer(Modifier.shadow(elevation = dimensionResource(R.dimen.shadow_elevation_high)).fillMaxWidth().height(0.5.dp).background(Color(0xFF00585A)))
                 Column(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(top = 24.dp),
+                        .padding(top = dimensionResource(R.dimen.padding_extra_large)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Choose Your Language",
+                        text = stringResource(R.string.language_choose),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.titleMedium,
@@ -140,17 +140,17 @@ fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
                     )
                     SmplDropdownMenu()
                     Spacer(
-                        Modifier
+                        modifier
                             .fillMaxWidth()
-                            .height(40.dp)
+                            .height(dimensionResource(R.dimen.spacer_extra_large))
                     )
                     StartedButton {
-                        navController.navigate("intro2")
+                        navController.navigate(INTRO_2)
                     }
                     Spacer(
                         Modifier
                             .fillMaxWidth()
-                            .height(20.dp)
+                            .height(dimensionResource(R.dimen.spacer_large))
                     )
                     TextButton(
                         onClick = {
@@ -169,7 +169,7 @@ fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
                         ) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(
-                                    8.dp,
+                                    dimensionResource(R.dimen.spacer_medium),
                                     Alignment.CenterHorizontally
                                 ),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -177,7 +177,7 @@ fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
                                     .fillMaxSize()
                             ) {
                                 Text(
-                                    text = "Skip",
+                                    text = stringResource(R.string.skip),
                                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.labelLarge,
@@ -194,8 +194,6 @@ fun Intro1(navController: NavController, modifier: Modifier = Modifier) {
 }
 
 
-
-
 @Composable
 fun StartedButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     Column(
@@ -203,12 +201,10 @@ fun StartedButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .width(153.dp)
-
             .requiredHeight(56.dp)
-            //.padding(horizontal = 100.dp)
             .clip(shape = RoundedCornerShape(100.dp))
             .background(color = MaterialTheme.colorScheme.tertiaryContainer)
-            .clickable { }
+            .clickable { onClick() }
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
@@ -222,13 +218,11 @@ fun StartedButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
                 )
         ) {
             Text(
-                text = "Get Started",
+                text = stringResource(R.string.get_started),
                 color = MaterialTheme.colorScheme.onTertiaryContainer,
                 textAlign = TextAlign.Center,
-                lineHeight = 1.43.em,
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier
-                    .clickable { onClick() }
                     .wrapContentHeight(align = Alignment.CenterVertically)
             )
         }

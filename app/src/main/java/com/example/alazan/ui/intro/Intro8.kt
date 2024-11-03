@@ -61,7 +61,7 @@ fun Intro8(navController: NavController, modifier: Modifier = Modifier) {
                 ) {
                     Text(
                         text = "Notification",
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight(700)
@@ -84,7 +84,7 @@ fun Intro8(navController: NavController, modifier: Modifier = Modifier) {
                         Spacer(modifier.padding(horizontal = 2.dp))
                         Text(
                             text = "Let Us Remind Your PrayerTimes As You Like.",
-                            color = MaterialTheme.colorScheme.onSurface,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight(700)
                             ),

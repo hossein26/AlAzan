@@ -2,6 +2,7 @@ package com.example.alazan.ui.intro
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ import androidx.navigation.NavController
 import com.example.alazan.R
 import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.PatternBackgroundBox
+import com.example.alazan.ui.settings.screens.sound.SoundDialog
 import com.example.alazan.ui.theme.AlAzanTheme
 
 @Composable
@@ -49,7 +51,15 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
         val azanNotifList = listOf(
             "Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha", "Midnight", "Tahajjud"
         )
+        var showDialog by remember { mutableStateOf(false) }
         PatternBackgroundBox {
+
+            if (showDialog) {
+                SoundDialog(){
+                    showDialog = false
+                }
+            }
+
             Box(
                 modifier = modifier
                     .fillMaxSize()
@@ -199,7 +209,9 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                             Spacer(modifier = modifier.padding(4.dp))
                             Column {
                                 azanNotifList.forEach { item ->
-                                    AzanAndNotifItem(item)
+                                    AzanAndNotifItem(item){
+                                        showDialog = true
+                                    }
                                 }
                             }
                             Row {
@@ -231,7 +243,7 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AzanAndNotifItem(title: String) {
+fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
     var notifState by remember { mutableStateOf(ToggleableState.Off) }
     var azanState by remember { mutableStateOf(ToggleableState.Off) }
     Column {
@@ -299,7 +311,10 @@ fun AzanAndNotifItem(title: String) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_settings),
                     contentDescription = "Icons/settings_filled_24px",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.clickable {
+                        showDialog()
+                    }
                 )
             }
         }

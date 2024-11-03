@@ -30,7 +30,7 @@ import com.example.alazan.R
 import com.example.alazan.ui.theme.AlAzanTheme
 
 @Composable
-fun Quibla1(navController: NavController, modifier: Modifier = Modifier) {
+fun Quibla(navController: NavController, modifier: Modifier = Modifier) {
 
     AlAzanTheme {
 

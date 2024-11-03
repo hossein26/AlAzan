@@ -235,9 +235,6 @@ fun LastChangeTime(modifier: Modifier = Modifier) {
             )
 
         }
-
-
-
         OutlinedTextField(
             value = value + "6",
             onValueChange = { value = it },
@@ -258,7 +255,7 @@ fun LastChangeTime(modifier: Modifier = Modifier) {
             modifier
                 .wrapContentHeight()
                 .wrapContentHeight()
-                .padding(8.dp)
+                .padding(4.dp)
                 .shadow(
                     elevation = 3.dp,
                     shape = RoundedCornerShape(12.dp),

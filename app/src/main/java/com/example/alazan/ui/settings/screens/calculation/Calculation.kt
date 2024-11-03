@@ -413,6 +413,7 @@ fun Calculation(navController: NavController, modifier: Modifier = Modifier) {
                         .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(MaterialTheme.colorScheme.surfaceContainer)
+
                 ) {
 
                     Row(

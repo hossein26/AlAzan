@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Al Azan</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="al_azan_app">Al Azan App</string>
+    <string name="language_choose">"Choose Your Language</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
     <string name="reminders">Reminders</string>
     <string name="reminders_label">15 min Before Maghrib</string>
     <string name="reminders_text">Ayat Al-Korsi</string>

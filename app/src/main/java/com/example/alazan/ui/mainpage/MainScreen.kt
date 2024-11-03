@@ -2,6 +2,7 @@ package com.example.alazan.ui.mainpage
 
 import android.os.Build
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,26 +42,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
-import com.example.alazan.ui.components.CustomOutlinedTextFieldWithLabel
 import com.example.alazan.ui.components.PatternBackgroundBox
+import com.example.alazan.ui.theme.AlAzanTheme
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
+@Composable
+@Preview(
+    //fontScale = 2f
+)
+fun perv(){
+    AlAzanTheme {
+        MainScreen()
+    }
+
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun MainScreen(
+    navController: NavController = rememberNavController(),
+    modifier: Modifier = Modifier) {
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -68,12 +84,6 @@ fun MainScreen(navController: NavController, modifier: Modifier = Modifier) {
     } else {
         TODO("VERSION.SDK_INT < O")
     }
-
-    val darkenedSurfaceContainer = lerp(
-        MaterialTheme.colorScheme.surfaceContainer,
-        Color.Black, // Blend with black to darken
-        0.05f // Darken by 20%, adjust for desired effect
-    )
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -244,7 +254,7 @@ fun MainScreen(navController: NavController, modifier: Modifier = Modifier) {
                             .padding(innerPadding)
                             .background(MaterialTheme.colorScheme.background)
                     ) {
-                        PrayerTime(modifier)
+                        PrayerTime(modifier, navController)
                     }
                 }
             )
@@ -253,8 +263,9 @@ fun MainScreen(navController: NavController, modifier: Modifier = Modifier) {
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrayerTime(modifier: Modifier) {
+fun PrayerTime(modifier: Modifier, navController: NavController) {
     // Data for prayer times
     val prayerTimes = listOf(
         "Fajr" to "03:45",
@@ -290,27 +301,28 @@ fun PrayerTime(modifier: Modifier) {
 
     Column(modifier = Modifier.fillMaxSize().shadow(elevation = 1.dp)) {
         Spacer(modifier.padding(1.dp))
-        PatternBackgroundBox(
-            kind = 1,
-            modifier = modifier
-                .fillMaxWidth()
-                .height(198.dp)
 
+        PatternBackgroundBox (
+            kind = 1,
+            modifier = modifier.heightIn(max = 274.dp, min = 274.dp)
         ) {
             Box(
                 modifier
 
                     .fillMaxWidth()
-                    .height(198.dp)
+                    .fillMaxHeight()
                     .padding(12.dp)
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.TopStart),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+
+                    ) {
                         Box(
                             modifier = modifier
                                 .size(40.dp)
@@ -335,7 +347,9 @@ fun PrayerTime(modifier: Modifier) {
                             textAlign = TextAlign.Center
                         )
                     }
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             "Next\nDay",
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -365,6 +379,7 @@ fun PrayerTime(modifier: Modifier) {
                 Column(
                     modifier = Modifier
                         .align(Alignment.Center)
+                        .padding(bottom = 12.dp)
                 ) {
                     Text(
                         "Monday",
@@ -380,15 +395,19 @@ fun PrayerTime(modifier: Modifier) {
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight(500),
-                        modifier = modifier.fillMaxWidth(),
+                        modifier = modifier.fillMaxWidth().clickable {
+                            navController.navigate("monthly_view")
+                        },
                         textAlign = TextAlign.Center
                     )
+
                 }
+                Spacer(modifier.padding(18.dp))
                 // Location and Next Prayer
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(bottom = 8.dp, start = 8.dp, end = 8.dp)
                         .align(Alignment.BottomCenter),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -411,12 +430,13 @@ fun PrayerTime(modifier: Modifier) {
                             fontWeight = FontWeight(500)
                         )
                     }
-                    Row {
-                        CustomOutlinedTextFieldWithLabel(
-                            label = "Next Prayer:",
-                            value = "-00:18:36",
-                            onValueChange = {},
-                        )
+                    Column {
+                        Text("Next Prayer",modifier.align(Alignment.CenterHorizontally), style = MaterialTheme.typography.labelMedium.copy(fontSize = 12.sp, color = MaterialTheme.colorScheme.tertiaryContainer))
+                        Box(
+                            modifier.border(2.dp,shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.tertiaryContainer)
+                        ){
+                            Text("-00:18:36", modifier.padding(vertical = 8.dp, horizontal = 10.dp), style = MaterialTheme.typography.labelLarge.copy(MaterialTheme.colorScheme.tertiaryContainer))
+                        }
                     }
 
 
@@ -492,7 +512,7 @@ fun ConditionalRoundedDottedBorderRow(
     applyBorder: Boolean, // Flag to conditionally apply the dotted border
 ) {
     val backgroundColor = when {
-        highlight -> MaterialTheme.colorScheme.onTertiary
+        //highlight -> MaterialTheme.colorScheme.onTertiary
         isBeforeHighlight -> MaterialTheme.colorScheme.secondaryContainer
         else -> MaterialTheme.colorScheme.surfaceVariant
     }
@@ -513,6 +533,20 @@ fun ConditionalRoundedDottedBorderRow(
             .fillMaxWidth()
             .background(
                 backgroundColor
+            )
+            .then(
+                if (highlight){
+                    Modifier.clip(
+                        RoundedCornerShape(
+                            topStart = 16.dp,
+                            topEnd = 16.dp
+                        )
+                    ).background(
+                        MaterialTheme.colorScheme.onTertiary
+                    )
+                }else{
+                    Modifier
+                }
             )
             .padding(8.dp)
 

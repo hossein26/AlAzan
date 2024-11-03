@@ -381,7 +381,7 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                navController.navigate("advancedCalculation")
+                                navController.navigate("advance_calculation")
                             }
                             .clip(shape = RoundedCornerShape(12.dp))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)

@@ -265,21 +265,22 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
                             }
                         }
                     }
-                    Spacer(modifier.padding(30.dp))
-                    Column(
-                        modifier = modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row {
-                            Text("State: ", style = MaterialTheme.typography.labelLarge)
-                            Text(
-                                "Enabled",
-                                style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.error)
-                            )
-                        }
-                    }
+                    Spacer(modifier.padding(60.dp))
+//                    Column(
+//                        modifier = modifier.fillMaxWidth(),
+//                        horizontalAlignment = Alignment.CenterHorizontally
+//                    ) {
+//                        Row {
+//                            Text("State: ", style = MaterialTheme.typography.labelLarge)
+//                            Text(
+//                                "Enabled",
+//                                style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.error)
+//                            )
+//                        }
+//                    }
 
                 }
+
                 Footer(modifier.align(Alignment.BottomCenter)){
                     navController.navigate("mainScreen")
                 }

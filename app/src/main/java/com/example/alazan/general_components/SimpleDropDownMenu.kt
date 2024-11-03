@@ -1,5 +1,6 @@
 package com.example.alazan.general_components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -64,7 +65,7 @@ fun SimpleDropdownMenu(modifier: Modifier = Modifier,items: List<String>, onItem
                         .padding(8.dp)
                         .weight(1f),
                     style = MaterialTheme.typography.labelLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 )
                 Icon(
@@ -82,7 +83,7 @@ fun SimpleDropdownMenu(modifier: Modifier = Modifier,items: List<String>, onItem
                         .padding(end = 2.dp, start = 2.dp),
                 )
                 DropdownMenu(
-                    modifier = Modifier.width(350.dp),
+                    modifier = Modifier.width(350.dp).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)),
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
                 ) {

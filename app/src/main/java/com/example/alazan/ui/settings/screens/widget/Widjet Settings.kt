@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -41,7 +43,9 @@ import com.example.alazan.ui.theme.AlAzanTheme
 
 
 @Composable
-fun WidgetSetting(navController: NavController, modifier: Modifier = Modifier) {
+fun WidgetSetting(
+    navController: NavController,
+    modifier: Modifier = Modifier) {
     AlAzanTheme {
 
         Column(
@@ -321,12 +325,12 @@ fun WidgetSetting(navController: NavController, modifier: Modifier = Modifier) {
                             repeat(prayerTimes.size) { add(true) }
                         }
                     }
-
+                    Spacer(modifier = modifier.padding(3.dp))
                     Row(
                         modifier
                             .fillMaxWidth()
                             //.padding(horizontal = 8.dp)
-                            .background(MaterialTheme.colorScheme.surfaceContainer)
+                            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                             ,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -341,7 +345,7 @@ fun WidgetSetting(navController: NavController, modifier: Modifier = Modifier) {
                         Text(
                             text = "Show",
                             modifier
-                                .padding(8.dp),
+                                .padding(horizontal = 26.dp, vertical = 8.dp),
                             fontSize = 14.sp,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurface
