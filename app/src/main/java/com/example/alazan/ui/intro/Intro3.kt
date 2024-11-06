@@ -262,9 +262,14 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
                         }
                     }
                 }
-                Footer(modifier.align(Alignment.BottomCenter)){
-                    navController.navigate("intro4")
-                }
+                Footer(
+                    modifier.align(Alignment.BottomCenter),
+                    onNextClick = {navController.navigate("intro4")},
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onSkipClick = {}
+                )
             }
         }
 

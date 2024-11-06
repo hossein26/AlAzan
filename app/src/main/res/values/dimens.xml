@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Footer -->
+    <dimen name="footer_height">120dp</dimen>
+    <dimen name="footer_vertical_spacing">12dp</dimen>
+    <dimen name="footer_horizontal_spacing">16dp</dimen>"
+    <dimen name="footer_button_width">80dp</dimen>
+    <dimen name="footer_button_height">40dp</dimen>
+
+    <!-- Progress bar -->
+    <dimen name="progress_bar_height">4dp</dimen>
+    <dimen name="progress_bar_corner_radius">8dp</dimen>
+    
+    <!-- Start Button -->
+    <dimen name="start_button_width">153dp</dimen>
+    <dimen name="start_button_height">56dp</dimen>
+
+    <!-- Skip button -->
+    <dimen name="skip_button_width">52dp</dimen>
+    <dimen name="skip_button_height">40dp</dimen>
+
+    <!-- screen -->
+    <dimen name="screen_padding">16dp</dimen>
+
     <!-- Padding sizes -->
     <dimen name="padding_extra_small">2dp</dimen>
     <dimen name="padding_small">4dp</dimen>
     <dimen name="padding_medium">8dp</dimen>
     <dimen name="padding_large">16dp</dimen>
+    <dimen name="horizontal_padding">18dp</dimen>
     <dimen name="padding_extra_large">32dp</dimen>
     <dimen name="padding_extra_extra_large">64dp</dimen>"
 
@@ -13,12 +37,48 @@
     <dimen name="padding_horizontal">12dp</dimen>
     <dimen name="padding_vertical">8dp</dimen>
 
+    <!-- Shadow elevation sizes -->
     <dimen name="shadow_elevation_medium">4dp</dimen>
     <dimen name="shadow_elevation_high">6dp</dimen>
 
+    <!-- Icon sizes -->
+    <dimen name="icon_small">16dp</dimen>
+    <dimen name="icon_medium">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+
+    <!-- Button sizes -->
+    <dimen name="button_small">24dp</dimen>
+    <dimen name="button_medium">32dp</dimen>
+    <dimen name="button_large">48dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_small">12dp</dimen>
+    <dimen name="text_medium">14dp</dimen>
+    <dimen name="text_large">16dp</dimen>
+
+    <!-- Font sizes -->
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_medium">14sp</dimen>
+    <dimen name="font_large">16sp</dimen>
+
+    <!-- shape size -->
+    <dimen name="shape_small">8dp</dimen>
+    <dimen name="shape_medium">16dp</dimen>
+    <dimen name="shape_large">24dp</dimen>
+
+    <!-- corner radius -->
+    <dimen name="corner_radius_small">4dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_large">16dp</dimen>
+    <dimen name="corner_radius_extra_large">32dp</dimen>
+    <dimen name="corner_radius_extra_extra_large">64dp</dimen>
+    <dimen name="corner_radius_circle">50%</dimen>
+
+    <!-- Spacer sizes -->
     <dimen name="spacer_extra_small">2dp</dimen>
     <dimen name="spacer_small">4dp</dimen>
     <dimen name="spacer_medium">8dp</dimen>
+    <dimen name="spacer_extra_medium">12dp</dimen>
     <dimen name="spacer_large">16dp</dimen>
     <dimen name="spacer_extra_large">32dp</dimen>
     <dimen name="spacer_extra_extra_large">64dp</dimen>"

@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.alazan.R
+import com.example.alazan.general_components.Navigation.INTRO_9
 import com.example.alazan.general_components.SimpleDropdownMenu
 import com.example.alazan.general_components.SwitchWithText
 import com.example.alazan.ui.components.Footer
@@ -191,9 +192,14 @@ fun Intro8(navController: NavController, modifier: Modifier = Modifier) {
                     }
                     Spacer(modifier = modifier.padding(30.dp))
                 }
-                Footer(modifier.align(Alignment.BottomCenter)){
-                    navController.navigate("intro9")
-                }
+                Footer(
+                    modifier.align(Alignment.BottomCenter),
+                    onNextClick = {navController.navigate(INTRO_9)},
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onSkipClick = {}
+                )
             }
         }
 

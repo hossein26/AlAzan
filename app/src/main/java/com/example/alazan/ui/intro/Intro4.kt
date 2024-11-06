@@ -408,9 +408,14 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                     Spacer(modifier = modifier.padding(30.dp))
 
                 }
-                Footer(modifier.align(Alignment.BottomCenter)){
-                    navController.navigate("intro7")
-                }
+                Footer(
+                    modifier.align(Alignment.BottomCenter),
+                    onNextClick = {navController.navigate("intro7")},
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onSkipClick = {}
+                )
             }
         }
 

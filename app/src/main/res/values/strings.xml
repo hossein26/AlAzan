@@ -4,6 +4,8 @@
     <string name="al_azan_app">Al Azan App</string>
     <string name="language_choose">"Choose Your Language</string>
     <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
     <string name="get_started">Get Started</string>
     <string name="reminders">Reminders</string>
     <string name="reminders_label">15 min Before Maghrib</string>
@@ -11,4 +13,8 @@
     <string name="onlyOnce">Only Once</string>
     <string name="weekDays">Monday, Sunday,\nWednesday, Saturday,\nThursday</string>
     <string name="everyday">Everyday</string>
+    <string name="thanks">Thank you for choosing us</string>
+    <string name="thanks_desc">In order to the app works correctly, you need to set some settings so we can calculate the exact time of the prayer times for you.</string>
+    <string name="backup_desc">If you have a backup file from before you can load it here.</string>
+    <string name="backup_button">Load Backup File</string>
 </resources>

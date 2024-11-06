@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.alazan.R
+import com.example.alazan.general_components.Navigation.MAIN_SCREEN
 import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.theme.AlAzanTheme
@@ -281,9 +282,14 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
 
                 }
 
-                Footer(modifier.align(Alignment.BottomCenter)){
-                    navController.navigate("mainScreen")
-                }
+                Footer(
+                    modifier.align(Alignment.BottomCenter),
+                    onNextClick = {navController.navigate(MAIN_SCREEN)},
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onSkipClick = {}
+                )
 
             }
 

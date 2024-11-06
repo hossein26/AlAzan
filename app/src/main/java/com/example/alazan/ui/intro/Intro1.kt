@@ -2,10 +2,7 @@ package com.example.alazan.ui.intro
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,12 +10,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -118,7 +118,7 @@ fun Intro1(navController: NavController = rememberNavController(), modifier: Mod
                             .height(311.dp)
                             .padding(top = dimensionResource(R.dimen.padding_medium)),
                         painter = painterResource(R.drawable.mosque_img),
-                        contentDescription = "",
+                        contentDescription = "mosque",
                         contentScale = ContentScale.Fit
                     )
 
@@ -144,8 +144,28 @@ fun Intro1(navController: NavController = rememberNavController(), modifier: Mod
                             .fillMaxWidth()
                             .height(dimensionResource(R.dimen.spacer_extra_large))
                     )
-                    StartedButton {
-                        navController.navigate(INTRO_2)
+                    Button(
+                        onClick = {
+                            navController.navigate(INTRO_2)
+                        },
+                        modifier = modifier
+                            .widthIn(min = dimensionResource(R.dimen.start_button_width))
+                            .requiredHeight(dimensionResource(R.dimen.start_button_height))
+                            .clip(shape = CircleShape),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                        )
+
+                    ) {
+                        Text(
+                            text = stringResource(R.string.get_started),
+                            color = MaterialTheme.colorScheme.onTertiaryContainer,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier
+                                .wrapContentWidth()
+                                .wrapContentHeight(align = Alignment.CenterVertically)
+                        )
                     }
                     Spacer(
                         Modifier
@@ -160,71 +180,20 @@ fun Intro1(navController: NavController = rememberNavController(), modifier: Mod
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         modifier = modifier
                             .align(Alignment.CenterHorizontally)
-                            .requiredHeight(height = 40.dp)
-                            .requiredWidth(width = 153.dp)
+                            .wrapContentSize()
                     ) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(
-                                    dimensionResource(R.dimen.spacer_medium),
-                                    Alignment.CenterHorizontally
-                                ),
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = modifier
-                                    .fillMaxSize()
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.skip),
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                    textAlign = TextAlign.Center,
-                                    style = MaterialTheme.typography.labelLarge,
-                                    modifier = modifier
-                                        .wrapContentHeight(align = Alignment.CenterVertically)
-                                )
-                            }
-                        }
+                        Text(
+                            text = stringResource(R.string.skip),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = modifier
+                                .width(dimensionResource(R.dimen.skip_button_width))
+                                .wrapContentHeight(align = Alignment.CenterVertically)
+                        )
                     }
                 }
             }
-        }
-    }
-}
-
-
-@Composable
-fun StartedButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(1.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .width(153.dp)
-            .requiredHeight(56.dp)
-            .clip(shape = RoundedCornerShape(100.dp))
-            .background(color = MaterialTheme.colorScheme.tertiaryContainer)
-            .clickable { onClick() }
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .width(153.dp)
-                .requiredHeight(height = 40.dp)
-                .padding(
-                    horizontal = 24.dp,
-                    vertical = 10.dp
-                )
-        ) {
-            Text(
-                text = stringResource(R.string.get_started),
-                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier
-                    .wrapContentHeight(align = Alignment.CenterVertically)
-            )
         }
     }
 }

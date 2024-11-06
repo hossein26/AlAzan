@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.alazan.R
+import com.example.alazan.general_components.Navigation.INTRO_8
 import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.settings.screens.sound.SoundDialog
@@ -232,9 +233,14 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                     Spacer(modifier = modifier.padding(60.dp))
 
                 }
-                Footer(modifier.align(Alignment.BottomCenter)){
-                    navController.navigate("intro8")
-                }
+                Footer(
+                    modifier.align(Alignment.BottomCenter),
+                    onNextClick = {navController.navigate(INTRO_8)},
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onSkipClick = {}
+                )
             }
         }
 
