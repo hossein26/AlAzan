@@ -41,14 +41,11 @@ fun Footer(
             .fillMaxWidth()
             .height(dimensionResource(R.dimen.footer_height))
             .background(Color.Transparent)
-            .padding(
-                horizontal = dimensionResource(R.dimen.footer_horizontal_spacing),
-                vertical = dimensionResource(R.dimen.footer_vertical_spacing)
-            )
     ) {
         Column(
+            modifier = modifier.padding(dimensionResource(R.dimen.screen_padding)),
             verticalArrangement = Arrangement.spacedBy(
-                dimensionResource(R.dimen.footer_vertical_spacing),
+                dimensionResource(R.dimen.footer_top_padding),
                 Alignment.Top
             ),
             horizontalAlignment = Alignment.CenterHorizontally,

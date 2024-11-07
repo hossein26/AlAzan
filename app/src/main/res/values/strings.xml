@@ -17,4 +17,120 @@
     <string name="thanks_desc">In order to the app works correctly, you need to set some settings so we can calculate the exact time of the prayer times for you.</string>
     <string name="backup_desc">If you have a backup file from before you can load it here.</string>
     <string name="backup_button">Load Backup File</string>
+    <string name="add_new_location">"Add New Location"</string>
+    <string name="icon">Icon</string>
+    <string name="empty_location">your location list is empty. please add new location</string>
+    <string name="location_list">Locations List</string>
+    <string name="location">Location</string>
+    <string name="whats_horizon">"What’s your Horizon ?"</string>
+    <string name="horizon_desc_1">We need your location to \u200B</string>
+    <string name="horizon_desc_2">calculate Azan \u200B</string>
+    <string name="horizon_desc_3">for you.\nJust hit the \u200B</string>
+    <string name="horizon_desc_4">“Add New Location” \u200B</string>
+    <string name="horizon_desc_5"> button below to add your location.\n</string>
+    <string name="horizon_desc_6">You can add more locations any time.</string>
+    <string name="calculation">Calculation</string>
+    <string name="how_calculate">How should We calculate?</string>
+    <string name="calculation_desc_1">Calculation of Azan has many \u200B</string>
+    <string name="calculation_desc_2">different methods.</string>
+    <string name="calculation_desc_3">Each method provides different results. It is Your responsibility to search and use the right method.</string>
+    <string name="calculation_method">Calculation Method</string>
+    <string name="fajr_angle">Fajr Angle</string>
+    <string name="isha_angle">Isha Angle</string>
+    <string name="isha_interval">Isha Interval</string>
+    <string name="maghrib_angle">Maghrib Angle</string>
+    <string name="calendar">Calendar</string>
+    <string name="calendar_type_desc">The type of lunar calendar shown in main screen and widgets</string>
+    <string name="attention">Attention!\n</string>
+    <string name="attention_desc">The app’s lunar calendar is pre-calculated and may not be accurate because it isn’t based on moon sightings. This especially important to note for the start and end of Ramadan.</string>
+    <string name="adjustments">Adjustments</string>
+    <string name="advanced_calculation_settings">Advanced Calculation Settings</string>
+    <string name="fajr">Fajr</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="dhuhr">Dhuhr</string>
+    <string name="asr">Asr</string>
+    <string name="sunset">Sunset</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
+    <string name="midnight">Midnight</string>
+    <string name="tahajjud">Tahajjud</string>
+    <string name="azan_and_notification">Azan And Notification</string>
+    <string name="favorite_muazzin">Who Is Your Favorite Muazzin?\nWhen Should We Play Azan?</string>
+    <string name="muazzin">Muazzin</string>
+
+    <string name="muazzin_name_1">Ragheb Mustafa Ghalwash</string>
+
+    <string name="notification_sound">Notification Sound</string>
+    <string name="bling">Bling!</string>
+    <string name="notification_sound_desc">Choose when you want Azan to be played and when you want to get notified.</string>
+    <string name="tahajjud_desc">Tahajjud is last third part of the night</string>
+    <string name="notification">Notification</string>
+    <string name="azan">Azan</string>
+    <string name="notification_desc">Let Us Remind Your PrayerTimes\nAs You Like.</string>
+    <string name="vibration_mode">Vibration Mode</string>
+    <string name="vibration_desc">Should phone vibrate when Azan or reminders start playing ?</string>
+    <string name="upcoming_alarm">Show “Upcoming Alarm” Notification</string>
+    <string name="upcoming_alarm_desc">If enabled, a notification will be shown around one hour before any prayer time or reminder that has sound</string>
+    <string name="next_notification_show">Show “Next” in Notification</string>
+    <string name="next_notification_show_desc">If enabled, when a notification is shown, it will contain info for the next prayer time</string>
+    <string name="custom_alarm">Custom upcoming alarm time</string>
+    <string name="custom_alarm_desc">Adjust when “Upcoming Alarm” notification will be shown. Both Azan and reminder.</string>
+    <string name="do_not_disturb">Bypass “Do not Disturb”</string>
+    <string name="do_not_disturb_desc">Should app still play Azan when “Do not Disturb” is active ?</string>
+    <string name="use_headphones">Use headphones when available</string>
+    <string name="use_headphones_desc">When using headphones, all audio will play only on headphones.</string>
+    <string name="volume_stop">Volume button Stops Azan</string>
+    <string name="volume_stop_desc">Azan stops playing when the volume button is pressed.</string>
+    <string name="dont_show_alarm">Don’t Show Alarm Screen</string>
+    <string name="dont_show_alarm_desc">When enabled, the screen will remain off when Azan or reminder starts playing, and alarm screen won’t be shown.</string>
+
+    <string name="battery_settings">Battery Settings</string>
+    <string name="battery_settings_desc">Why Did It Stop?\nKeep Running!</string>
+    <string name="help_app_running">Help The App Keep Running</string>
+    <string name="help_app_running_desc">In order to app keep working perfectly,
+        you need to allow it be running in the background or battery optimization
+        settings on your phone will close the app after a few minutes.\nTo to so follow steps below:\n
+        1- Hit the button below to open battery optimization settings.\n
+        2- Find the Al-Azan App in the list.\n
+        3- Disable the Power Optimization For Al-Azan\n
+        4- You Are Done</string>
+    <string name="state">State: \u200B</string>
+    <string name="enabled">Enabled</string>
+    <string name="open_battery_settings">Open Battery Optimization Settings</string>
+    <string name="power_settings">Power Manager Settings</string>
+    <string name="power_settings_desc">Some devices need extra settings inside the Power Manager
+        to let the app keeps running in the background. If you fixed previous step and still
+        facing problem, use these steps:\n
+        1- Hit the button below to open Power Manager\n
+        2- Find the Al-Azan App in the list.\n
+        3- Disable the Power Saving For Al-Azan\n
+        4- You Are Done</string>
+
+    <string name="open_power_settings">Open Power Manager Settings</string>
+    <string name="samsung_devices_exception">
+        Samsung devices have their own custom Power Manager called “Device Care”.\n\nFor Samsung users:\n
+        1- Hit the button to open Battery Menu.\n
+        2- Open “Background usage limits”\n
+        3- open “Never auto sleeping apps”\n
+        4- Hit the “+” button on top\n
+        5- Find and add the “Al-Azan” app.\n
+        6- You are done.\n\nNote: If you didn’t find the app in the list you probably don’t need to do this part. </string>
+
+    <string name="skip_dialog_warning_desc">The app might not work properly if you skip the setup!</string>
+    <string name="skip_dialog_warning">Do you really want to skip?</string>
+    <string name="cancel">Cancel</string>
+    
+    <string name="location_dialog_desc">You can add your location in 3 different ways. Choose one below:\n
+        • Search By City\n
+        • Find Use Location\n
+        • Using Coordinates</string>
+    <string name="search_by_city">Search By City</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="find_location">Find Location</string>
+    <string name="using_coordinates">Using Coordinates</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="paste">Paste</string>
+    <string name="settings">Settings</string>
 </resources>

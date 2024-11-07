@@ -4,15 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
@@ -27,21 +26,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
 import com.example.alazan.general_components.Navigation.MAIN_SCREEN
 import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.theme.AlAzanTheme
 
+@Preview
 @Composable
-fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
+fun Intro9(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     AlAzanTheme {
         PatternBackgroundBox {
             Box(
@@ -52,11 +55,11 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
                     modifier = modifier
                         .align(Alignment.TopCenter)
                         .verticalScroll(rememberScrollState())
-                        .padding(16.dp),
+                        .padding(dimensionResource(R.dimen.screen_padding)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Battery Settings",
+                        text = stringResource(R.string.battery_settings),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                         style = TextStyle(
@@ -65,102 +68,88 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
                         ),
                         modifier = Modifier
                             .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(8.dp)
+                            .padding(dimensionResource(R.dimen.text_padding))
                     )
                     Row(
                         modifier = Modifier
-                            .padding(top = 16.dp, bottom = 20.dp),
+                            .padding(top= dimensionResource(R.dimen.horizontal_title_padding), bottom = dimensionResource(R.dimen.horizontal_title_padding)),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_battery),
                             contentDescription = null,
                             modifier = Modifier
-                                .requiredSize(size = 48.dp)
+                                .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
                         )
+                        Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
-                            text = "Why Did It Stop?\n" +
-                                    "Keep Running!",
+                            text = stringResource(R.string.battery_settings_desc),
                             color = MaterialTheme.colorScheme.onBackground,
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.15.sp
                             ),
                             modifier = Modifier
-                                .padding(8.dp),
+                                .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Help The App Keep Running",
+                                text = stringResource(R.string.help_app_running),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.titleSmall.copy(
-                                    fontWeight = FontWeight(500)
+                                    fontWeight = FontWeight.Medium
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(20.dp)
                             )
-                            Spacer(modifier = modifier.padding(6.dp))
+                            Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items)))
                             Text(
-                                text = "In order to app keep working perfectly, you need to allow it be running in the background or battery optimization settings on your phone will close the app after a few minutes. \n" +
-                                        "To to so follow steps below:\n" +
-                                        "  1- Hit the button below to open battery optimization settings.\n" +
-                                        "  2- Find the Al-Azan App in the list.\n" +
-                                        "  3- Disable the Power Optimization For Al-Azan\n" +
-                                        "  4- You Are Done",
+                                text = stringResource(R.string.help_app_running_desc),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 4.dp),
+                                    .widthIn(max = dimensionResource(R.dimen.max_width_text))
+                                    .padding(horizontal = dimensionResource(R.dimen.text_padding)),
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
-                            Spacer(modifier = modifier.padding(8.dp))
+                            Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items)))
                             Column(
                                 modifier = modifier.fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Row {
-                                    Text("State: ", style = MaterialTheme.typography.labelLarge.copy(
+                                    Text(stringResource(R.string.state), style = MaterialTheme.typography.labelLarge.copy(
                                         color = MaterialTheme.colorScheme.onSurface
                                     ))
                                     Text(
-                                        "Enabled",
+                                        stringResource(R.string.enabled),
                                         style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.error)
                                     )
                                 }
+                                Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
                                 Button(
                                     onClick = {
 
                                     },
-                                    shape = RoundedCornerShape(100.dp),
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                    contentPadding = PaddingValues(
-                                        start = 16.dp,
-                                        top = 10.dp,
-                                        end = 24.dp,
-                                        bottom = 10.dp
-                                    ),
                                     modifier = Modifier
-                                        .padding(top = 6.dp)
-                                        .requiredHeight(height = 40.dp)
+                                        .widthIn(min = dimensionResource(R.dimen.button_icon_width))
                                         .wrapContentWidth()
                                         .align(Alignment.CenterHorizontally)
                                 ) {
                                     Text(
-                                        text = "Open Battery Optimization Settings",
+                                        text = stringResource(R.string.open_battery_settings),
                                         color = MaterialTheme.colorScheme.onPrimary,
                                         textAlign = TextAlign.Center,
                                         style = MaterialTheme.typography.labelLarge,
@@ -171,43 +160,37 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
                             }
                         }
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Power Manager Settings",
+                                text = stringResource(R.string.power_settings),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.titleSmall.copy(
-                                    fontWeight = FontWeight(500)
+                                    fontWeight = FontWeight.Medium
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(20.dp)
                             )
-                            Spacer(modifier = modifier.padding(6.dp))
+                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                             Text(
-                                text = "Some devices need extra settings inside the Power Manager to let the app keeps running in the background. If you fixed previous step and still facing problem, use these steps:\n" +
-                                        "  1- Hit the button below to open Power Manager\n" +
-                                        "  2- Find the Al-Azan App in the list.\n" +
-                                        "  3- Disable the Power Saving For Al-Azan\n" +
-                                        "  4- You Are Done",
+                                text = stringResource(R.string.power_settings_desc),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 4.dp),
+                                    .widthIn(max = dimensionResource(R.dimen.max_width_text)).padding(horizontal = dimensionResource(R.dimen.text_padding)),
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
-                            Spacer(modifier = modifier.padding(8.dp))
+                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                             Column(
                                 modifier = modifier.fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally
@@ -216,22 +199,14 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
                                     onClick = {
 
                                     },
-                                    shape = RoundedCornerShape(100.dp),
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                    contentPadding = PaddingValues(
-                                        start = 16.dp,
-                                        top = 10.dp,
-                                        end = 24.dp,
-                                        bottom = 10.dp
-                                    ),
                                     modifier = Modifier
-                                        .padding(top = 6.dp)
-                                        .requiredHeight(height = 40.dp)
-                                        .wrapContentWidth()
+                                        .widthIn(min = dimensionResource(R.dimen.button_icon_width))
+                                        .wrapContentHeight()
                                         .align(Alignment.CenterHorizontally)
                                 ) {
                                     Text(
-                                        text = "Open Power Manager Settings",
+                                        text = stringResource(R.string.open_power_settings),
                                         color = MaterialTheme.colorScheme.onPrimary,
                                         textAlign = TextAlign.Center,
                                         style = MaterialTheme.typography.labelLarge,
@@ -240,45 +215,23 @@ fun Intro9(navController: NavController, modifier: Modifier = Modifier) {
                                     )
                                 }
                             }
-                            Spacer(modifier = modifier.padding(8.dp))
+                            Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items)))
                             Row {
                                 Icon(
-                                    modifier = modifier.padding(end = 5.dp),
                                     painter = painterResource(R.drawable.information_slab_circle_gray),
                                     contentDescription = "",
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
+                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
                                 Text(
-                                    "Samsung devices have their own custom Power Manager called “Device Care”.\n" +
-                                            "\n" +
-                                            "For Samsung users:\n" +
-                                            "  1- Hit the button to open Battery Menu.\n" +
-                                            "  2- Open “Background usage limits”\n" +
-                                            "  3- open “Never auto sleeping apps”\n" +
-                                            "  4- Hit the “+” button on top\n" +
-                                            "  5- Find and add the “Al-Azan” app.\n" +
-                                            "  6- You are done.\n" +
-                                            "\n" +
-                                            "Note: If you didn’t find the app in the list you probably don’t need to do this part. ",
+                                    stringResource(R.string.samsung_devices_exception),
                                     style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
-                                    modifier = modifier.align(Alignment.CenterVertically).padding(horizontal = 4.dp)
+                                    modifier = modifier.align(Alignment.CenterVertically)
                                 )
                             }
                         }
                     }
-                    Spacer(modifier.padding(60.dp))
-//                    Column(
-//                        modifier = modifier.fillMaxWidth(),
-//                        horizontalAlignment = Alignment.CenterHorizontally
-//                    ) {
-//                        Row {
-//                            Text("State: ", style = MaterialTheme.typography.labelLarge)
-//                            Text(
-//                                "Enabled",
-//                                style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.error)
-//                            )
-//                        }
-//                    }
+                    Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding)))
 
                 }
 

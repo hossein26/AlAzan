@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,24 +26,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
+import com.example.alazan.general_components.Navigation.ADJUSTMENTS
+import com.example.alazan.general_components.Navigation.ADVANCED_CALCULATION_SETTINGS
+import com.example.alazan.general_components.Navigation.INTRO_7
 import com.example.alazan.general_components.SimpleDropdownMenu
 import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.theme.AlAzanTheme
 
+@Preview
 @Composable
-fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
+fun Intro4(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     AlAzanTheme {
         val calculationMethod = listOf(
             "Shia Ithna Ashari, Leva Institute, Qum, Iran",
@@ -60,65 +67,69 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
         PatternBackgroundBox {
             Box(
                 modifier = modifier
-                    .fillMaxSize()
+                    .fillMaxSize().clipToBounds()
             ) {
                 Column(
-                    modifier = Modifier
+                    modifier = modifier
                         .align(Alignment.TopCenter)
-                        .padding(16.dp)
-                        .padding(bottom = 100.dp)
+                        .padding(dimensionResource(R.dimen.screen_padding))
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Calculation",
+                        text = stringResource(R.string.calculation),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight(700)
+                            fontWeight = FontWeight.Bold
                         ),
-                        modifier = Modifier
+                        modifier = modifier
                             .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(8.dp)
+                            .padding(dimensionResource(R.dimen.text_padding))
                     )
                     Row(
-                        modifier = Modifier
-                            .padding(top = 16.dp, bottom = 20.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = modifier
+                            .padding(
+                                top = dimensionResource(R.dimen.horizontal_title_padding),
+                                bottom = dimensionResource(R.dimen.horizontal_title_padding)
+                            ),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_telescope),
                             contentDescription = null,
                             modifier = Modifier
-                                .requiredSize(size = 48.dp)
+                                .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
                         )
+                        Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
-                            text = "How should We calculate?",
+                            text = stringResource(R.string.how_calculate),
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight(700)
+                                fontWeight = FontWeight.Bold
                             ),
-                            modifier = Modifier
-                                .padding(8.dp),
+                            modifier = modifier
+                                .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
                     Row(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.information_slab_circle),
                             contentDescription = null,
                             modifier = modifier
-                                .padding(end = 6.dp)
-                                .size(24.dp),
+                                .size(dimensionResource(R.dimen.icon_size_small)),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
+                        Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
                         Column(
-                            modifier = Modifier
+                            modifier = modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
@@ -128,58 +139,57 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                             color = MaterialTheme.colorScheme.onSurface,
                                             fontSize = 12.sp
                                         )
-                                    ) { append("Calculation of Azan has many ") }
+                                    ) { append(stringResource(R.string.calculation_desc_1)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold
                                         )
-                                    ) { append("different methods.") }
+                                    ) { append(stringResource(R.string.calculation_desc_2)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
                                             fontSize = 12.sp
                                         )
-                                    ) { append(" Each method provides different results. It is Your responsibility to search and use the right method.") }
+                                    ) { append(stringResource(R.string.calculation_desc_3)) }
                                 },
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .widthIn(max = dimensionResource(R.dimen.max_width_text)),
                             )
                         }
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column(
-                            modifier = Modifier
+                            modifier = modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Calculation Method",
+                                text = stringResource(R.string.calculation_method),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.titleSmall,
-                                modifier = Modifier
+                                modifier = modifier
                                     .fillMaxWidth()
-                                    .height(20.dp)
                             )
-                            Spacer(modifier = modifier.padding(4.dp))
+                            Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items)))
                             SimpleDropdownMenu(items = calculationMethod) { }
-                            Spacer(modifier = modifier.padding(1.dp))
+                            Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items_small)))
                             Row(
-                                modifier = Modifier
+                                modifier = modifier
                                     .fillMaxWidth()
                                     .border(
-                                        width = 1.dp,
-                                        color = Color.LightGray,
-                                        shape = RoundedCornerShape(8.dp)
+                                        width = dimensionResource(R.dimen.item_border_width),
+                                        color = MaterialTheme.colorScheme.outline,
+                                        shape = RoundedCornerShape(dimensionResource(R.dimen.item_border_radius))
                                     )
-                                    .padding(8.dp),
+                                    .padding(dimensionResource(R.dimen.item_content_padding)),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Column(
@@ -188,7 +198,7 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                         .weight(1f)
                                 ) {
                                     Text(
-                                        "Fajr Angle",
+                                        stringResource(R.string.fajr_angle),
                                         modifier = Modifier.fillMaxWidth(),
                                         style = MaterialTheme.typography.labelMedium.copy(
                                             color = MaterialTheme.colorScheme.onSurface
@@ -210,7 +220,7 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                         .weight(1f)
                                 ) {
                                     Text(
-                                        "Fajr Angle",
+                                        stringResource(R.string.isha_angle),
                                         modifier = modifier.fillMaxWidth(),
                                         style = MaterialTheme.typography.labelMedium.copy(
                                             color = MaterialTheme.colorScheme.onSurface
@@ -229,10 +239,10 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                 Column(
                                     modifier = modifier
                                         .fillMaxWidth()
-                                        .weight(1f)
+                                        .weight(1.1f)
                                 ) {
                                     Text(
-                                        "Fajr Angle",
+                                        stringResource(R.string.isha_interval),
                                         modifier = modifier.fillMaxWidth(),
                                         style = MaterialTheme.typography.labelMedium.copy(
                                             color = MaterialTheme.colorScheme.onSurface
@@ -251,10 +261,10 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                 Column(
                                     modifier = modifier
                                         .fillMaxWidth()
-                                        .weight(1f)
+                                        .weight(1.2f)
                                 ) {
                                     Text(
-                                        "Fajr Angle",
+                                        stringResource(R.string.maghrib_angle),
                                         modifier = modifier.fillMaxWidth(),
                                         style = MaterialTheme.typography.labelMedium.copy(
                                             color = MaterialTheme.colorScheme.onSurface
@@ -264,62 +274,61 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                     Text(
                                         "16",
                                         modifier = modifier.fillMaxWidth(),
-                                        style = MaterialTheme.typography.labelMedium.copy(
-                                            color = MaterialTheme.colorScheme.onSurface
-                                        ),
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         textAlign = TextAlign.Center
                                     )
                                 }
                             }
                         }
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column(
-                            modifier = Modifier
+                            modifier = modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Calendar",
+                                text = stringResource(R.string.calendar),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.titleSmall,
-                                modifier = Modifier
+                                modifier = modifier
                                     .fillMaxWidth()
-                                    .height(20.dp)
                             )
-                            Spacer(modifier = modifier.padding(2.dp))
+                            Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items_medium)))
                             Text(
-                                text = "The type of lunar calendar shown in main screen and widgets",
+                                text = stringResource(R.string.calendar_type_desc),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier
+                                modifier = modifier
                                     .fillMaxWidth()
 
                             )
-                            Spacer(modifier = modifier.padding(4.dp))
-                            SimpleDropdownMenu(items = calendarType) { }
-                            Spacer(modifier = modifier.padding(1.dp))
+                            Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items)))
+                            SimpleDropdownMenu(items = calendarType) {
+
+                            }
+                            Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items_large)))
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .clip(shape = RoundedCornerShape(12.dp))
+                                    .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                                     .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                                    .padding(top = 12.dp)
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.information_slab_circle),
                                     contentDescription = null,
                                     modifier = modifier
-                                        .padding(end = 6.dp)
-                                        .size(24.dp),
+                                        .size(dimensionResource(R.dimen.icon_size_small)),
                                     tint = MaterialTheme.colorScheme.onSurface
                                 )
+                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -332,35 +341,36 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                                                     fontSize = 14.sp,
                                                     fontWeight = FontWeight.Bold
                                                 )
-                                            ) { append("Attention!") }
+                                            ) { append(stringResource(R.string.attention)) }
                                             withStyle(
                                                 style = SpanStyle(
                                                     color = MaterialTheme.colorScheme.onSurface,
-                                                    fontSize = 12.sp
+                                                    fontSize = 12.sp,
                                                 )
-                                            ) { append("\nThe app’s lunar calendar is pre-calculated and may not be accurate because it isn’t based on moon sightings. This especially important to note for the start and end of Ramadan.") }
+                                            ) { append(stringResource(R.string.attention_desc)) }
                                         },
-                                        modifier = Modifier
-                                            .fillMaxWidth()
+                                        lineHeight = 22.sp,
+                                        modifier = modifier
+                                            .widthIn(max = dimensionResource(R.dimen.max_width_text))
                                     )
                                 }
                             }
                         }
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .clickable {
-                                navController.navigate("adjustments")
+                                navController.navigate(ADJUSTMENTS)
                             }
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(start = 12.dp, top = 12.dp, bottom = 12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Text(
-                            text = "Adjustments",
-                            modifier = Modifier
+                            text = stringResource(R.string.adjustments),
+                            modifier = modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.titleSmall.copy(
                                 color = MaterialTheme.colorScheme.onSurface
@@ -370,26 +380,25 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                             painter = painterResource(id = R.drawable.ic_navigation_next),
                             contentDescription = null,
                             modifier = modifier
-                                .padding(end = 6.dp)
-                                .size(24.dp)
+                                .size(dimensionResource(R.dimen.icon_size_small))
                                 .align(Alignment.CenterEnd),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                navController.navigate("advance_calculation")
+                                navController.navigate(ADVANCED_CALCULATION_SETTINGS)
                             }
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(start = 12.dp, top = 12.dp, bottom = 12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Text(
-                            text = "Advanced Calculation Settings",
-                            modifier = Modifier
+                            text = stringResource(R.string.advanced_calculation_settings),
+                            modifier = modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.titleSmall.copy(
                                 color = MaterialTheme.colorScheme.onSurface
@@ -399,18 +408,17 @@ fun Intro4(navController: NavController, modifier: Modifier = Modifier) {
                             painter = painterResource(id = R.drawable.ic_navigation_next),
                             contentDescription = null,
                             modifier = modifier
-                                .padding(end = 6.dp)
-                                .size(24.dp)
+                                .size(dimensionResource(R.dimen.icon_size_small))
                                 .align(Alignment.CenterEnd),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
-                    Spacer(modifier = modifier.padding(30.dp))
+                    Spacer(modifier = modifier.padding(dimensionResource(R.dimen.last_card_padding)))
 
                 }
                 Footer(
                     modifier.align(Alignment.BottomCenter),
-                    onNextClick = {navController.navigate("intro7")},
+                    onNextClick = { navController.navigate(INTRO_7) },
                     onBackClick = {
                         navController.popBackStack()
                     },

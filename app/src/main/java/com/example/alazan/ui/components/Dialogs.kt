@@ -32,7 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,196 +53,213 @@ fun LocationDialog(modifier: Modifier = Modifier) {
         "Tehran", "Arak", "Shahryar"
     )
 
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+            .background(color = MaterialTheme.colorScheme.surfaceContainer)
+            .padding(16.dp)
+    ) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-                .clip(shape = RoundedCornerShape(12.dp))
-                .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                .padding(16.dp)
+                .padding(8.dp)
         ) {
-            Row(
+            Icon(
+                painter = painterResource(R.drawable.information_slab_circle),
+                contentDescription = "",
+                tint = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
+            Text(
+                text = stringResource(R.string.location_dialog_desc),
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            ) {
-                Icon(
-                    modifier = modifier.padding(end = 8.dp),
-                    painter = painterResource(R.drawable.information_slab_circle),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = "You can add your location in 3 different ways. Choose one below:\n" +
-                            "  • Search By City\n" +
-                            "  • Find Use Location\n" +
-                            "  • Using Coordinates",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    lineHeight = 22.sp
-                )
+                    .fillMaxWidth(),
+                lineHeight = 22.sp
+            )
 
-            }
-            HorizontalDivider(color = MaterialTheme.colorScheme.onSurface)
-            Spacer(modifier = modifier.padding(6.dp))
-            Text("Search By City", style = MaterialTheme.typography.titleSmall.copy(
+        }
+        HorizontalDivider(color = MaterialTheme.colorScheme.onSurface)
+        Spacer(modifier = modifier.padding(6.dp))
+        Text(
+            stringResource(R.string.search_by_city),
+            style = MaterialTheme.typography.titleSmall.copy(
                 color = MaterialTheme.colorScheme.onSurface
-            ))
-            Spacer(modifier = modifier.padding(4.dp))
-            Row(
-                modifier.fillMaxWidth()
+            )
+        )
+        Spacer(modifier = modifier.padding(4.dp))
+        Row(
+            modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .weight(1f)
             ) {
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    Text(
-                        "Country", style = MaterialTheme.typography.labelMedium.copy(
-                            color = MaterialTheme.colorScheme.onSurface
-                        ),
-                        modifier = modifier.padding(start = 6.dp)
-                    )
-                    Spacer(modifier = modifier.padding(2.dp))
-                    SimpleDropdownMenu(items = countries) { }
-                }
-                Spacer(modifier.padding(4.dp))
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    Text(
-                        "City", style = MaterialTheme.typography.labelMedium.copy(
-                            color = MaterialTheme.colorScheme.onSurface
-                        ),
-                        modifier = modifier.padding(start = 6.dp)
-                    )
-                    Spacer(modifier = modifier.padding(2.dp))
-                    SimpleDropdownMenu(items = cities) { }
-                }
-            }
-            HorizontalDivider(modifier.padding(vertical = 8.dp), color =  MaterialTheme.colorScheme.outlineVariant)
-            Text("Find Location", style = MaterialTheme.typography.titleSmall.copy(
-                color = MaterialTheme.colorScheme.onSurface
-            ))
-            Spacer(modifier.padding(4.dp))
-            Button(
-                modifier = modifier.align(Alignment.CenterHorizontally),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                onClick = {}
-            ) {
-                Row {
-                    Icon(
-                        modifier = modifier.size(18.dp),
-                        painter = painterResource(R.drawable.ic_find_location),
-                        contentDescription = "",
-                    )
-                    Spacer(modifier.padding(horizontal = 4.dp))
-                    Text("Find Location", style = MaterialTheme.typography.labelLarge.copy(
-                    ))
-                }
-            }
-            HorizontalDivider(modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outlineVariant)
-            Text("Using Coordinates", style = MaterialTheme.typography.titleSmall.copy(
-                color = MaterialTheme.colorScheme.onSurface
-            ))
-            Spacer(modifier = modifier.padding(6.dp))
-            Row(
-                modifier.fillMaxWidth(),
-            ) {
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        "Latitude", style = MaterialTheme.typography.labelMedium.copy(
-                            color = MaterialTheme.colorScheme.onSurface
-                        ),
-                        modifier = modifier.padding(start = 6.dp)
-                    )
-                    Spacer(modifier = modifier.padding(2.dp))
-                    Box(
-                        modifier
-                            .border(
-                                width = 1.dp,
-                                color = Color.Gray,
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .height(32.dp)
-                            .background(MaterialTheme.colorScheme.surfaceContainer)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("0", color = MaterialTheme.colorScheme.primaryContainer)
-                    }
-                }
                 Text(
-                    "_",
-                    modifier
-                        .align(Alignment.Bottom)
-                        .padding(4.dp)
+                    stringResource(R.string.country),
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    modifier = modifier.padding(start = 6.dp)
                 )
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        "Longitude", style = MaterialTheme.typography.labelMedium.copy(
-                            color = MaterialTheme.colorScheme.onSurface
-                        ),
-                        modifier = modifier.padding(start = 6.dp)
+                Spacer(modifier = modifier.padding(2.dp))
+                SimpleDropdownMenu(items = countries) { }
+            }
+            Spacer(modifier.padding(4.dp))
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Text(
+                    stringResource(R.string.city),
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    modifier = modifier.padding(start = 6.dp)
+                )
+                Spacer(modifier = modifier.padding(2.dp))
+                SimpleDropdownMenu(items = cities) { }
+            }
+        }
+        HorizontalDivider(
+            modifier.padding(vertical = 8.dp),
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
+        Text(
+            stringResource(R.string.find_location),
+            style = MaterialTheme.typography.titleSmall.copy(
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        )
+        Spacer(modifier.padding(4.dp))
+        Button(
+            modifier = modifier.align(Alignment.CenterHorizontally),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ),
+            onClick = {}
+        ) {
+            Row {
+                Icon(
+                    modifier = modifier.size(18.dp),
+                    painter = painterResource(R.drawable.ic_find_location),
+                    contentDescription = stringResource(R.string.find_location),
+                )
+                Spacer(modifier.padding(horizontal = 4.dp))
+                Text(
+                    stringResource(R.string.find_location),
+                    style = MaterialTheme.typography.labelLarge.copy(
                     )
-                    Spacer(modifier = modifier.padding(2.dp))
-                    Box(
-                        modifier
-                            .background(MaterialTheme.colorScheme.surfaceContainer)
-                            .fillMaxWidth()
-                            .height(32.dp)
-                            .border(
-                                width = 1.dp,
-                                color = Color.Gray,
-                                shape = RoundedCornerShape(8.dp)
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("0", color = MaterialTheme.colorScheme.primaryContainer)
-                    }
+                )
+            }
+        }
+        HorizontalDivider(
+            modifier.padding(vertical = 8.dp),
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
+        Text(
+            stringResource(R.string.using_coordinates),
+            style = MaterialTheme.typography.titleSmall.copy(
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        )
+        Spacer(modifier = modifier.padding(6.dp))
+        Row(
+            modifier.fillMaxWidth(),
+        ) {
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    stringResource(R.string.latitude),
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    modifier = modifier.padding(start = 6.dp)
+                )
+                Spacer(modifier = modifier.padding(2.dp))
+                Box(
+                    modifier
+                        .border(
+                            width = 1.dp,
+                            color = Color.Gray,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .height(32.dp)
+                        .background(MaterialTheme.colorScheme.surfaceContainer)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("0", color = MaterialTheme.colorScheme.primaryContainer)
                 }
             }
-            Spacer(modifier = modifier.padding(8.dp))
-            Button(
-                modifier = modifier.align(Alignment.CenterHorizontally),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                onClick = {}
+            Text(
+                "_",
+                modifier
+                    .align(Alignment.Bottom)
+                    .padding(4.dp)
+            )
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row {
-                    Icon(
-                        modifier = modifier.size(18.dp),
-                        painter = painterResource(R.drawable.ic_paste),
-                        contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                    Spacer(modifier.padding(horizontal = 4.dp))
-                    Text("Paste", style = MaterialTheme.typography.labelLarge)
+                Text(
+                    stringResource(R.string.longitude),
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    modifier = modifier.padding(start = 6.dp)
+                )
+                Spacer(modifier = modifier.padding(2.dp))
+                Box(
+                    modifier
+                        .background(MaterialTheme.colorScheme.surfaceContainer)
+                        .fillMaxWidth()
+                        .height(32.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Color.Gray,
+                            shape = RoundedCornerShape(8.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("0", color = MaterialTheme.colorScheme.primaryContainer)
                 }
             }
         }
+        Spacer(modifier = modifier.padding(8.dp))
+        Button(
+            modifier = modifier.align(Alignment.CenterHorizontally),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ),
+            onClick = {}
+        ) {
+            Row {
+                Icon(
+                    modifier = modifier.size(18.dp),
+                    painter = painterResource(R.drawable.ic_paste),
+                    contentDescription = stringResource(R.string.paste),
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+                Spacer(modifier.padding(horizontal = 4.dp))
+                Text(stringResource(R.string.paste), style = MaterialTheme.typography.labelLarge)
+            }
+        }
     }
-
-
+}
 
 
 @Composable
@@ -267,13 +286,13 @@ fun SkipSetupDialog(
         title = {
             Row {
                 Icon(
-                    imageVector = Icons.Default.Info, // Use an info icon
+                    imageVector = Icons.Default.Info,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primaryContainer // Customize icon color
+                    tint = MaterialTheme.colorScheme.primaryContainer
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "The app might not work properly if you skip the setup!",
+                    text = stringResource(R.string.skip_dialog_warning_desc),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -282,7 +301,7 @@ fun SkipSetupDialog(
         },
         text = {
             Text(
-                text = "Do you really want to skip?",
+                text = stringResource(R.string.skip_dialog_warning),
                 style = MaterialTheme.typography.titleSmall.copy(
                     fontWeight = FontWeight(500),
                     color = MaterialTheme.colorScheme.onSurface
@@ -301,7 +320,7 @@ fun SkipSetupDialog(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             ) {
-                Text(text = "Cancel")
+                Text(text = stringResource(R.string.cancel))
             }
 
         },
@@ -320,10 +339,10 @@ fun SkipSetupDialog(
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                 shape = RoundedCornerShape(50)
             ) {
-                Text(text = "skip ($skipCount)")
+                Text(text = stringResource(R.string.skip) + " ($skipCount) ")
             }
         },
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)),
         // backgroundColor = Color.White
     )
 }

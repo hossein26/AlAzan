@@ -5,17 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,33 +31,38 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
+import com.example.alazan.general_components.Navigation.INTRO_4
+import com.example.alazan.general_components.Navigation.MAIN_SCREEN
 import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.LocationDialog
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.theme.AlAzanTheme
 
+@Preview
 @Composable
-fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
+fun Intro3(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     var showLocationDialog by remember { mutableStateOf(false) }
 
     AlAzanTheme {
 
         if (showLocationDialog) {
-
             Dialog(
-
                 onDismissRequest = { showLocationDialog = false },
                 properties = DialogProperties(
                     usePlatformDefaultWidth = false,
@@ -64,8 +70,6 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
             ) {
                 LocationDialog()
             }
-
-
         }
 
         PatternBackgroundBox {
@@ -76,55 +80,58 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
                 Column(
                     modifier = modifier
                         .align(Alignment.TopCenter)
-                        .padding(16.dp),
+                        .padding(dimensionResource(R.dimen.screen_padding)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Location",
+                        text = stringResource(R.string.location),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight(700),
+                            fontWeight = FontWeight.Bold,
                         ),
                         modifier = Modifier
                             .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(8.dp)
+                            .padding(dimensionResource(R.dimen.text_padding))
                     )
                     Row(
-                        modifier = Modifier
-                            .padding(top = 16.dp, bottom = 20.dp),
+                        modifier = modifier
+                            .padding(
+                                top = dimensionResource(R.dimen.horizontal_title_padding),
+                                bottom = dimensionResource(R.dimen.horizontal_title_padding)
+                            ),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.vaadin_globe),
                             contentDescription = null,
                             modifier = Modifier
-                                .requiredSize(size = 48.dp)
+                                .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
                         )
-                        Spacer(modifier.padding(horizontal = 2.dp))
+                        Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
-                            text = "What’s your Horizon ?",
+                            text = stringResource(R.string.whats_horizon),
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight(700)
+                                fontWeight = FontWeight.Bold
                             ),
                             modifier = Modifier
-                                .padding(8.dp),
+                                .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.information_slab_circle),
                             contentDescription = null,
-                            modifier = modifier.padding(end = 6.dp),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
+                        Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -136,7 +143,7 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
                                             color = MaterialTheme.colorScheme.onSurface,
                                             fontSize = 14.sp
                                         )
-                                    ) { append("We need your location to ") }
+                                    ) { append(stringResource(R.string.horizon_desc_1)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
@@ -144,92 +151,76 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
                                             fontSize = 14.sp,
                                             fontWeight = FontWeight.Bold
                                         )
-                                    ) { append("calculate Azan") }
+                                    ) { append(stringResource(R.string.horizon_desc_2)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
-
                                             fontSize = 14.sp
                                         )
-                                    ) { append(" for you. \nJust hit the ") }
+                                    ) { append(stringResource(R.string.horizon_desc_3)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
-
                                             fontSize = 14.sp,
                                             fontWeight = FontWeight.Bold
                                         )
-                                    ) { append("“Add New Location”") }
+                                    ) { append(stringResource(R.string.horizon_desc_4)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
-
                                             fontSize = 14.sp
                                         )
-                                    ) { append(" button below to add your location.\n") }
+                                    ) { append(stringResource(R.string.horizon_desc_5)) }
                                     withStyle(
                                         style = SpanStyle(
                                             color = MaterialTheme.colorScheme.onSurface,
-
                                             fontSize = 14.sp,
                                             fontWeight = FontWeight.Bold
                                         )
-                                    ) { append("You can add more locations any time.") }
+                                    ) { append(stringResource(R.string.horizon_desc_6)) }
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
                             )
                         }
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Locations List",
+                                text = stringResource(R.string.location_list),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.titleSmall.copy(
-                                    fontWeight = FontWeight(500)
+                                    fontWeight = FontWeight.Medium
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(20.dp)
                             )
+                            Spacer(modifier.size(dimensionResource(R.dimen.spacer_medium)))
                             Text(
-                                text = "your location list is empty. please add new location",
-                                color = MaterialTheme.colorScheme.onSurface,
+                                text = stringResource(R.string.empty_location),
                                 style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier
-                                    .height(40.dp)
-                                    .padding(top = 12.dp)
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
-                            Row {
-
-                            }
+                            Spacer(modifier.size(dimensionResource(R.dimen.spacer_large)))
                             Button(
                                 onClick = {
                                     showLocationDialog = true
                                 },
-                                shape = RoundedCornerShape(100.dp),
+                                shape = CircleShape,
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                contentPadding = PaddingValues(
-                                    start = 16.dp,
-                                    top = 10.dp,
-                                    end = 24.dp,
-                                    bottom = 10.dp
-                                ),
                                 modifier = Modifier
-                                    .padding(top = 6.dp)
-                                    .requiredHeight(height = 40.dp)
-                                    .width(182.dp)
+                                    .widthIn(min = dimensionResource(R.dimen.button_icon_width))
+                                    .heightIn(min = dimensionResource(R.dimen.button_icon_height))
                                     .align(Alignment.CenterHorizontally)
                             ) {
                                 Row(
@@ -239,23 +230,24 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
                                     ),
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier
-                                        .fillMaxSize()
+                                        .wrapContentWidth()
+                                        .wrapContentHeight(align = Alignment.CenterVertically)
                                 ) {
                                     Image(
                                         painter = painterResource(id = R.drawable.ic_plus),
-                                        contentDescription = "icon",
+                                        contentDescription = stringResource(R.string.icon),
                                         modifier = Modifier
-                                            .requiredSize(size = 18.dp),
-                                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
+                                            .requiredSize(size = dimensionResource(R.dimen.icon_size_button)),
+                                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(
+                                            MaterialTheme.colorScheme.onPrimary
+                                        ),
 
-                                    )
+                                        )
                                     Text(
-                                        text = "Add New Location",
+                                        text = stringResource(R.string.add_new_location),
                                         color = MaterialTheme.colorScheme.onPrimary,
                                         textAlign = TextAlign.Center,
                                         style = MaterialTheme.typography.labelLarge,
-                                        modifier = Modifier
-                                            .wrapContentHeight(align = Alignment.CenterVertically)
                                     )
                                 }
                             }
@@ -264,11 +256,13 @@ fun Intro3(navController: NavController, modifier: Modifier = Modifier) {
                 }
                 Footer(
                     modifier.align(Alignment.BottomCenter),
-                    onNextClick = {navController.navigate("intro4")},
+                    onNextClick = { navController.navigate(INTRO_4) },
                     onBackClick = {
                         navController.popBackStack()
                     },
-                    onSkipClick = {}
+                    onSkipClick = {
+                        navController.navigate(MAIN_SCREEN)
+                    }
                 )
             }
         }

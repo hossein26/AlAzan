@@ -24,11 +24,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
 import com.example.alazan.general_components.Navigation.INTRO_9
 import com.example.alazan.general_components.SimpleDropdownMenu
@@ -37,14 +40,15 @@ import com.example.alazan.ui.components.Footer
 import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.theme.AlAzanTheme
 
+@Preview
 @Composable
-fun Intro8(navController: NavController, modifier: Modifier = Modifier) {
+fun Intro8(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     AlAzanTheme {
         var isChecked by remember { mutableStateOf(true) }
         val vibrationMode = listOf(
             "Once", "Twice"
         )
-        val upcommingAlarm = listOf(
+        val upcomingAlarm = listOf(
             "60 minutes", "50 minutes"
         )
         PatternBackgroundBox {
@@ -55,146 +59,154 @@ fun Intro8(navController: NavController, modifier: Modifier = Modifier) {
                 Column(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
-                        .padding(16.dp)
-                        .padding(bottom = 100.dp)
+                        .padding(dimensionResource(R.dimen.screen_padding))
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Notification",
+                        text = stringResource(R.string.notification),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight(700)
+                            fontWeight = FontWeight.Bold
                         ),
                         modifier = Modifier
                             .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(8.dp)
+                            .padding(dimensionResource(R.dimen.text_padding))
                     )
                     Row(
                         modifier = Modifier
-                            .padding(top = 16.dp, bottom = 20.dp, start = 20.dp, end = 20.dp),
+                            .padding(
+                                top = dimensionResource(R.dimen.horizontal_title_padding),
+                                bottom = dimensionResource(R.dimen.horizontal_title_padding)
+                            ),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_alarm),
                             contentDescription = null,
                             modifier = Modifier
-                                .requiredSize(size = 36.dp)
+                                .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
                         )
-                        Spacer(modifier.padding(horizontal = 2.dp))
+                        Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
-                            text = "Let Us Remind Your PrayerTimes As You Like.",
+                            text = stringResource(R.string.notification_desc),
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight(700)
+                                fontWeight = FontWeight.Bold
                             ),
                             modifier = Modifier
-                                .padding(8.dp),
+                                .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Text(
-                            text = "Vibration Mode",
+                            text = stringResource(R.string.vibration_mode),
                             modifier = Modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.titleSmall.copy(
                                 MaterialTheme.colorScheme.onSurface
                             )
                         )
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
                         Text(
-                            text = "Should phone vibrate when Azan or reminders start playing ?",
+                            text = stringResource(R.string.vibration_desc),
                             modifier = Modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
-                        Spacer(modifier.padding(6.dp))
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                         SimpleDropdownMenu(items = vibrationMode) {}
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_large)))
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         SwitchWithText(
-                            title = "Show “Upcoming Alarm” Notification",
-                            description = "If enabled, a notification will be shown around one hour before any prayer time or reminder that has sound  ",
-                            onCheckedChange = {checked ->
+                            title = stringResource(R.string.upcoming_alarm),
+                            description = stringResource(R.string.upcoming_alarm_desc),
+                            onCheckedChange = { checked ->
                                 isChecked = checked
                             },
                             isChecked = isChecked
                         )
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
                         SwitchWithText(
-                            title = "Show “Next” in Notification",
-                            description = "If enabled, when a notification is shown, it will contain info for the next prayer time ",
+                            title = stringResource(R.string.next_notification_show),
+                            description = stringResource(R.string.next_notification_show_desc),
                             onCheckedChange = {},
                             isChecked = true
                         )
-                        Spacer(modifier.padding(6.dp))
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_large)))
                         Text(
-                            text = "Custom upcoming alarm time",
+                            text = stringResource(R.string.dont_show_alarm),
                             modifier = Modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.titleSmall.copy(
                                 MaterialTheme.colorScheme.onSurface
                             )
                         )
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
                         Text(
-                            text = "Adjust when “Upcoming Alarm” notification will be shown. Both Azan and reminder.",
+                            text = stringResource(R.string.custom_alarm_desc),
                             modifier = Modifier
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
-                        Spacer(modifier.padding(6.dp))
-                        SimpleDropdownMenu(items = upcommingAlarm) {}
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                        SimpleDropdownMenu(items = upcomingAlarm) {}
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         SwitchWithText(
-                            title = "Bypass “Do not Disturb”",
-                            description = "Should app still play Azan when “Do not Disturb” is active ?",
+                            title = stringResource(R.string.do_not_disturb),
+                            description = stringResource(R.string.do_not_disturb_desc),
                             onCheckedChange = {},
                             isChecked = true
                         )
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
                         SwitchWithText(
-                            title = "Use headphones when available",
-                            description = "When using headphones, all audio will play only on headphones.",
+                            title = stringResource(R.string.use_headphones),
+                            description = stringResource(R.string.use_headphones_desc),
                             onCheckedChange = {},
                             isChecked = true
                         )
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
                         SwitchWithText(
-                            title = "Volume button Stops Azan",
-                            description = "Azan stops playing when the volume button is pressed.",
+                            title = stringResource(R.string.volume_stop),
+                            description = stringResource(R.string.volume_stop_desc),
                             onCheckedChange = {},
                             isChecked = true
                         )
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
                         SwitchWithText(
-                            title = "Don’t Show Alarm Screen",
-                            description = "When enabled, the screen will remain off when Azan or reminder starts playing, and alarm screen won’t be shown.",
+                            title = stringResource(R.string.dont_show_alarm),
+                            description = stringResource(R.string.dont_show_alarm_desc),
                             onCheckedChange = {},
                             isChecked = true
                         )
                     }
-                    Spacer(modifier = modifier.padding(30.dp))
+                    Spacer(modifier = modifier.padding(dimensionResource(R.dimen.last_card_padding)))
                 }
                 Footer(
                     modifier.align(Alignment.BottomCenter),
-                    onNextClick = {navController.navigate(INTRO_9)},
+                    onNextClick = { navController.navigate(INTRO_9) },
                     onBackClick = {
                         navController.popBackStack()
                     },

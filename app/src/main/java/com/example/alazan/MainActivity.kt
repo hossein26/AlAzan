@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.alazan.general_components.Navigation.ABOUT_US
 import com.example.alazan.general_components.Navigation.ADJUSTMENTS
+import com.example.alazan.general_components.Navigation.ADVANCED_CALCULATION_SETTINGS
 import com.example.alazan.general_components.Navigation.CALCULATION
 import com.example.alazan.general_components.Navigation.COUNTER
 import com.example.alazan.general_components.Navigation.INTRO_1
@@ -99,7 +100,7 @@ fun MyApp() {
         composable("widget_setting") { WidgetSetting(navController) }
         composable("backup") { Backup(navController) }
         composable("interface") { InterfaceSettings(navController) }
-        composable("advance_calculation") { AdvancedCalculation(navController) }
+        composable(ADVANCED_CALCULATION_SETTINGS) { AdvancedCalculation(navController) }
         composable("monthly_view") { MonthlyView(navController) }
 
     }

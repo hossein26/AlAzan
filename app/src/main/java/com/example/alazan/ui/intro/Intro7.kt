@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
@@ -31,14 +30,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.alazan.R
 import com.example.alazan.general_components.Navigation.INTRO_8
 import com.example.alazan.ui.components.Footer
@@ -46,17 +48,26 @@ import com.example.alazan.ui.components.PatternBackgroundBox
 import com.example.alazan.ui.settings.screens.sound.SoundDialog
 import com.example.alazan.ui.theme.AlAzanTheme
 
+@Preview
 @Composable
-fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
+fun Intro7(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     AlAzanTheme {
         val azanNotifList = listOf(
-            "Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha", "Midnight", "Tahajjud"
+            stringResource(R.string.fajr),
+            stringResource(R.string.sunrise),
+            stringResource(R.string.dhuhr),
+            stringResource(R.string.asr),
+            stringResource(R.string.sunset),
+            stringResource(R.string.maghrib),
+            stringResource(R.string.isha),
+            stringResource(R.string.midnight),
+            stringResource(R.string.tahajjud),
         )
         var showDialog by remember { mutableStateOf(false) }
         PatternBackgroundBox {
 
             if (showDialog) {
-                SoundDialog(){
+                SoundDialog() {
                     showDialog = false
                 }
             }
@@ -68,57 +79,55 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                 Column(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
-                        .padding(16.dp)
-                        //.padding(bottom = 100.dp)
+                        .padding(dimensionResource(R.dimen.screen_padding))
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Azan & Notification",
+                        text = stringResource(R.string.azan_and_notification),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight(700)
+                            fontWeight = FontWeight.Bold
                         ),
                         modifier = Modifier
                             .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(8.dp)
+                            .padding(dimensionResource(R.dimen.text_padding))
                     )
                     Row(
                         modifier = Modifier
-                            .padding(top = 16.dp, bottom = 20.dp),
+                            .padding(top= dimensionResource(R.dimen.horizontal_title_padding), bottom = dimensionResource(R.dimen.horizontal_title_padding)),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_mdi_talk),
                             contentDescription = null,
                             modifier = Modifier
-                                .requiredSize(size = 48.dp)
+                                .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
                         )
-                        Spacer(modifier.padding(horizontal = 2.dp))
+                        Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
-                            text = "Who Is Your Favorite Muazzin?\n" +
-                                    "When Should We Play Azan?",
+                            text = stringResource(R.string.favorite_muazzin),
                             color = MaterialTheme.colorScheme.onBackground,
                             style = MaterialTheme.typography.labelMedium.copy(
-                                fontWeight = FontWeight(700),
+                                fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
                                 lineHeight = 24.sp
                             ),
                             modifier = Modifier
-                                .padding(8.dp),
+                                .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(start = 12.dp, top = 12.dp, bottom = 12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column {
                             Text(
-                                text = "Muazzin",
+                                text = stringResource(R.string.muazzin),
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 style = MaterialTheme.typography.titleSmall.copy(
@@ -126,7 +135,7 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                                 )
                             )
                             Text(
-                                text = "Ragheb Mustafa Ghalwash",
+                                text = stringResource(R.string.muazzin_name_1),
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primaryContainer)
@@ -137,23 +146,22 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                             painter = painterResource(id = R.drawable.ic_navigation_next),
                             contentDescription = null,
                             modifier = modifier
-                                .padding(end = 6.dp)
-                                .size(24.dp)
+                                .size(dimensionResource(R.dimen.icon_size_small))
                                 .align(Alignment.CenterEnd),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(start = 12.dp, top = 12.dp, bottom = 12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column {
                             Text(
-                                text = "Notification Sound",
+                                text = stringResource(R.string.notification_sound),
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 style = MaterialTheme.typography.titleSmall.copy(
@@ -161,7 +169,7 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                                 )
                             )
                             Text(
-                                text = "Bling!",
+                                text = stringResource(R.string.bling),
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primaryContainer)
@@ -172,45 +180,43 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                             painter = painterResource(id = R.drawable.ic_navigation_next),
                             contentDescription = null,
                             modifier = modifier
-                                .padding(end = 6.dp)
-                                .size(24.dp)
+                                .size(dimensionResource(R.dimen.icon_size_small))
                                 .align(Alignment.CenterEnd),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
-                    Spacer(modifier.padding(6.dp))
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(12.dp))
+                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                             .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(12.dp)
+                            .padding(dimensionResource(R.dimen.card_content_padding))
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Azan & notification",
+                                text = stringResource(R.string.azan_and_notification),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.titleSmall,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(20.dp)
                             )
-                            Spacer(modifier = modifier.padding(2.dp))
+                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
                             Text(
-                                text = "Choose when you want Azan to be played and when you want to get notified.",
+                                text = stringResource(R.string.notification_sound_desc),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodyMedium,
                                 modifier = Modifier
                                     .fillMaxWidth()
 
                             )
-                            Spacer(modifier = modifier.padding(4.dp))
+                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
                             Column {
                                 azanNotifList.forEach { item ->
-                                    AzanAndNotifItem(item){
+                                    AzanAndNotifItem(item) {
                                         showDialog = true
                                     }
                                 }
@@ -221,21 +227,23 @@ fun Intro7(navController: NavController, modifier: Modifier = Modifier) {
                                     contentDescription = "",
                                     tint = MaterialTheme.colorScheme.onSurface,
                                 )
+                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
                                 Text(
-                                    "Tahajjud is last third part of the night",
+                                    stringResource(R.string.tahajjud_desc) ,
                                     style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurface),
-                                    modifier = modifier.align(Alignment.CenterVertically).padding(horizontal = 4.dp)
+                                    modifier = modifier
+                                        .align(Alignment.CenterVertically)
                                 )
                             }
                         }
 
                     }
-                    Spacer(modifier = modifier.padding(60.dp))
+                    Spacer(modifier = modifier.size(dimensionResource(R.dimen.last_card_padding)))
 
                 }
                 Footer(
                     modifier.align(Alignment.BottomCenter),
-                    onNextClick = {navController.navigate(INTRO_8)},
+                    onNextClick = { navController.navigate(INTRO_8) },
                     onBackClick = {
                         navController.popBackStack()
                     },
@@ -257,16 +265,15 @@ fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth().padding(horizontal = 2.dp)
+                .fillMaxWidth()
         ) {
             Text(
                 text = title,
                 color = MaterialTheme.colorScheme.onSurface,
-                lineHeight = 1.43.em,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight(500)
+                    fontWeight = FontWeight.Medium
                 ),
-                modifier = Modifier
+                modifier = Modifier.weight(1f)
             )
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -274,21 +281,19 @@ fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-
-                ) {
+                    ) {
                     Text(
-                        text = "Notification",
+                        text = stringResource(R.string.notification),
                         color = MaterialTheme.colorScheme.onSurface,
-                        lineHeight = 1.33.em,
                         style = MaterialTheme.typography.bodySmall
                     )
                     TriStateCheckbox(
-                        state = notifState, // وضعیت چک‌باکس
+                        state = notifState,
                         onClick = {
                             notifState = when (notifState) {
-                                ToggleableState.On -> ToggleableState.Off // از Checked به Unchecked
-                                ToggleableState.Off -> ToggleableState.Indeterminate // از Unchecked به Indeterminate
-                                ToggleableState.Indeterminate -> ToggleableState.On // از Indeterminate به Checked
+                                ToggleableState.On -> ToggleableState.Off
+                                ToggleableState.Off -> ToggleableState.Indeterminate
+                                ToggleableState.Indeterminate -> ToggleableState.On
                             }
                         }
                     )
@@ -296,29 +301,28 @@ fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
 
-                ) {
+                    ) {
                     Text(
-                        text = "Azan",
+                        text = stringResource(R.string.azan),
                         color = MaterialTheme.colorScheme.onSurface,
-                        lineHeight = 1.33.em,
                         style = MaterialTheme.typography.bodySmall
                     )
                     TriStateCheckbox(
-                        state = azanState, // وضعیت چک‌باکس
+                        state = azanState,
                         onClick = {
                             azanState = when (azanState) {
-                                ToggleableState.On -> ToggleableState.Off // از Checked به Unchecked
-                                ToggleableState.Off -> ToggleableState.Indeterminate // از Unchecked به Indeterminate
-                                ToggleableState.Indeterminate -> ToggleableState.On // از Indeterminate به Checked
+                                ToggleableState.On -> ToggleableState.Off
+                                ToggleableState.Off -> ToggleableState.Indeterminate
+                                ToggleableState.Indeterminate -> ToggleableState.On
                             }
                         }
                     )
                 }
                 Icon(
                     painter = painterResource(id = R.drawable.ic_settings),
-                    contentDescription = "Icons/settings_filled_24px",
+                    contentDescription = stringResource(R.string.settings),
                     tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.clickable {
+                    modifier = Modifier.size(dimensionResource(R.dimen.icon_size_small)).clickable {
                         showDialog()
                     }
                 )
@@ -326,8 +330,8 @@ fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
         }
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),
-            thickness = 0.2.dp,
-            color = MaterialTheme.colorScheme.primary
+            thickness = 0.5.dp,
+            color = MaterialTheme.colorScheme.outline
         )
     }
 }

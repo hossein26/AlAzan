@@ -21,6 +21,7 @@ object Navigation {
     const val SOUND = "sound"
     const val CALCULATION = "calculation"
     const val LOCATION = "location"
+    const val ADVANCED_CALCULATION_SETTINGS = "advanced_calculation_settings"
 
 
 }
