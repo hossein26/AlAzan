@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.alazan"
+    namespace = "com.github.meypod.al_azan"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.alazan"
+        applicationId = "com.github.meypod.al_azan"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 78
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
