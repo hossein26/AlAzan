@@ -7,13 +7,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -35,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SampleBottomSheetMenu(
@@ -43,28 +48,25 @@ fun SampleBottomSheetMenu(
     items: List<String>,
     onItemSelected: (String) -> Unit,
 ) {
-    // State for managing the bottom sheet visibility
     var showBottomSheet by remember { mutableStateOf(false) }
-    // State for storing the selected item
     var selectedItem by remember { mutableStateOf(items.firstOrNull() ?: "") }
-
     AlAzanTheme {
-        // Box layout to trigger bottom sheet
         Box(
             modifier = modifier
                 .fillMaxWidth()
                 .heightIn(min = dimensionResource(R.dimen.bottom_sheet_height))
-                .border(
-                    width = 0.5.dp,
-                    color = MaterialTheme.colorScheme.outline,
-                    shape = RoundedCornerShape(dimensionResource(R.dimen.item_border_radius))
-                )
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
-                    .background(Color.Transparent)
                     .fillMaxWidth()
+                    .background(Color.Transparent)
+                    .border(
+                        width = 0.5.dp,
+                        color = MaterialTheme.colorScheme.outline,
+                        shape = RoundedCornerShape(dimensionResource(R.dimen.item_border_radius))
+                    )
+                    .clip(RoundedCornerShape(dimensionResource(R.dimen.item_border_radius)))
                     .clickable { showBottomSheet = true }
                     ,
                 verticalAlignment = Alignment.CenterVertically
@@ -81,11 +83,11 @@ fun SampleBottomSheetMenu(
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     painter = painterResource(id = R.drawable.arrow_drop_down),
                     contentDescription = "Drop down",
-                    modifier = Modifier.size(dimensionResource(R.dimen.icon_size_small)).padding(end = dimensionResource(R.dimen.padding_small))
+                    modifier = Modifier
+                        .size(dimensionResource(R.dimen.icon_size_small))
+                        .padding(end = dimensionResource(R.dimen.padding_small))
                 )
             }
-
-            // BottomSheet content
             if (showBottomSheet) {
                 ModalBottomSheet(
                     onDismissRequest = { showBottomSheet = false },
@@ -93,37 +95,43 @@ fun SampleBottomSheetMenu(
                 ) {
                     Column(
                         modifier = Modifier
+                            .padding(
+                                bottom = WindowInsets.navigationBars.asPaddingValues()
+                                    .calculateBottomPadding()
+                            )
                             .fillMaxWidth()
-                            .padding(dimensionResource(R.dimen.bottom_sheet_item_padding)),
+                            .padding(horizontal = dimensionResource(R.dimen.bottom_sheet_item_padding)),
                     ) {
                         items.forEach { item ->
+                            Box  (
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(dimensionResource(R.dimen.bottom_sheet_item_height)),
+                                contentAlignment = Alignment.CenterStart
+                            ) {
                                 Text(
                                     text = item,
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .heightIn(min = dimensionResource(R.dimen.bottom_sheet_item_height))
-                                        .padding(dimensionResource(R.dimen.text_padding))
                                         .clickable {
                                             selectedItem = item
                                             showBottomSheet = false
                                             onItemSelected(item)
-                                        },
+                                        }
+                                        .fillMaxWidth()
+                                        .padding(dimensionResource(R.dimen.text_padding)),
                                     style = MaterialTheme.typography.bodyLarge.copy(
                                         color = MaterialTheme.colorScheme.onSurface,
                                         fontSize = 16.sp
                                     )
                                 )
-
+                            }
                         }
-                        Spacer(Modifier.padding(dimensionResource(R.dimen.bottom_sheet_bottom_spacer)))
                     }
                 }
             }
         }
     }
 }
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SampleBottomSheetMenuIntro(
@@ -131,13 +139,9 @@ fun SampleBottomSheetMenuIntro(
     items: List<String>,
     onItemSelected: (String) -> Unit,
 ) {
-    // State for managing the bottom sheet visibility
     var showBottomSheet by remember { mutableStateOf(false) }
-    // State for storing the selected item
     var selectedItem by remember { mutableStateOf(items.firstOrNull() ?: "") }
-
     AlAzanTheme {
-        // Box layout to trigger bottom sheet
         Box(
             modifier = modifier
                 .width(dimensionResource(R.dimen.bottom_sheet_width_intro))
@@ -151,15 +155,16 @@ fun SampleBottomSheetMenuIntro(
                     .clickable { showBottomSheet = true }
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = Color.White,
                         shape = RoundedCornerShape(dimensionResource(R.dimen.item_border_radius))
-                    ),
+                    )
+                    .clip(RoundedCornerShape(dimensionResource(R.dimen.item_border_radius))),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = selectedItem,
                     modifier = modifier
-                        .padding(dimensionResource(R.dimen.text_padding))
+                        .padding( dimensionResource(R.dimen.text_padding))
                         .weight(1f),
                     style = MaterialTheme.typography.labelLarge.copy(
                         color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -172,40 +177,46 @@ fun SampleBottomSheetMenuIntro(
                     modifier = Modifier.size(dimensionResource(R.dimen.icon_size_small))
                 )
             }
-
-            // BottomSheet content
             if (showBottomSheet) {
                 ModalBottomSheet(
                     onDismissRequest = { showBottomSheet = false },
-                    sheetState = rememberModalBottomSheetState(
-                        //initialValue = ModalBottomSheetValue.Expanded
-                    )
+                    sheetState = rememberModalBottomSheetState()
                 ) {
                     Column(
-                        modifier = modifier
+                        modifier = Modifier
+                            .padding(
+                                bottom = WindowInsets.navigationBars.asPaddingValues()
+                                    .calculateBottomPadding()
+                            )
+                            .verticalScroll(rememberScrollState())
                             .fillMaxWidth()
-                            .padding(dimensionResource(R.dimen.bottom_sheet_item_padding)),
+                            .padding(horizontal = dimensionResource(R.dimen.bottom_sheet_item_padding)),
                     ) {
                         items.forEach { item ->
-                            Text(
-                                text = item,
-                                modifier = modifier
+                            Box  (
+                                modifier = Modifier
                                     .fillMaxWidth()
-                                    .heightIn(min = dimensionResource(R.dimen.bottom_sheet_item_height))
-                                    .padding(dimensionResource(R.dimen.text_padding))
-                                    .clickable {
-                                        selectedItem = item
-                                        showBottomSheet = false
-                                        onItemSelected(item)
-                                    },
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    fontSize = 16.sp
+                                    .height(dimensionResource(R.dimen.bottom_sheet_item_height)), // Ensures consistent height
+                                contentAlignment = Alignment.CenterStart
+                            ) {
+                                Text(
+                                    text = item,
+                                    modifier = modifier
+                                        .clickable {
+                                            selectedItem = item
+                                            showBottomSheet = false
+                                            onItemSelected(item)
+                                        }
+                                        .fillMaxWidth()
+                                        .padding(dimensionResource(R.dimen.text_padding))
+                                        ,
+                                    style = MaterialTheme.typography.bodyLarge.copy(
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        fontSize = 16.sp
+                                    )
                                 )
-                            )
-
+                            }
                         }
-                        Spacer(modifier.padding(dimensionResource(R.dimen.bottom_sheet_bottom_spacer)))
                     }
                 }
             }

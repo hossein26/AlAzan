@@ -56,8 +56,5 @@ fun SwitchWithText(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
-
     }
-
 }
-

@@ -9,66 +9,68 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.github.meypod.al_azan.general_components.Navigation.ABOUT_US
-import com.github.meypod.al_azan.general_components.Navigation.ADJUSTMENTS
-import com.github.meypod.al_azan.general_components.Navigation.ADVANCED
-import com.github.meypod.al_azan.general_components.Navigation.ADVANCED_CALCULATION_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.AZAN_ALARM
-import com.github.meypod.al_azan.general_components.Navigation.BACKUP_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.CALCULATION_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.COUNTER
-import com.github.meypod.al_azan.general_components.Navigation.FIX_PROBLEMS_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.INTERFACE_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_1
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_2
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_3
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_4
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_6
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_7
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_8
-import com.github.meypod.al_azan.general_components.Navigation.INTRO_9
-import com.github.meypod.al_azan.general_components.Navigation.LOCATION_LIST
-import com.github.meypod.al_azan.general_components.Navigation.LOCATION_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.MAIN_SCREEN
-import com.github.meypod.al_azan.general_components.Navigation.MONTHLY_VIEW
-import com.github.meypod.al_azan.general_components.Navigation.MUAZZIN
-import com.github.meypod.al_azan.general_components.Navigation.NOTIFICATION_SOUND
-import com.github.meypod.al_azan.general_components.Navigation.QIBLA
-import com.github.meypod.al_azan.general_components.Navigation.QIBLA_COMPOSE
-import com.github.meypod.al_azan.general_components.Navigation.QIBLA_LOCATION
-import com.github.meypod.al_azan.general_components.Navigation.REMINDER
-import com.github.meypod.al_azan.general_components.Navigation.SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.SOUND_SETTINGS
-import com.github.meypod.al_azan.general_components.Navigation.WIDGET_SETTINGS
-import com.github.meypod.al_azan.ui.alarm.AzanAlarm
-import com.github.meypod.al_azan.ui.intro.Intro1
-import com.github.meypod.al_azan.ui.intro.Intro2
-import com.github.meypod.al_azan.ui.intro.Intro3
-import com.github.meypod.al_azan.ui.intro.Intro4
-import com.github.meypod.al_azan.ui.intro.Intro6
-import com.github.meypod.al_azan.ui.intro.Intro7
-import com.github.meypod.al_azan.ui.intro.Intro8
-import com.github.meypod.al_azan.ui.intro.Intro9
-import com.github.meypod.al_azan.ui.mainpage.MainScreen
-import com.github.meypod.al_azan.ui.settings.screens.Settings
-import com.github.meypod.al_azan.ui.settings.screens.backup.Backup
-import com.github.meypod.al_azan.ui.settings.screens.calculation.Adjustments
-import com.github.meypod.al_azan.ui.settings.screens.calculation.AdvancedCalculation
-import com.github.meypod.al_azan.ui.settings.screens.calculation.Calculation
-import com.github.meypod.al_azan.ui.settings.screens.counter.Counter
-import com.github.meypod.al_azan.ui.settings.screens.fixproblem.Advanced
-import com.github.meypod.al_azan.ui.settings.screens.fixproblem.FixProblems
-import com.github.meypod.al_azan.ui.settings.screens.interfacesettings.InterfaceSettings
-import com.github.meypod.al_azan.ui.settings.screens.locations.Location
-import com.github.meypod.al_azan.ui.settings.screens.locations.LocationList
-import com.github.meypod.al_azan.ui.settings.screens.quibla.Qibla
-import com.github.meypod.al_azan.ui.settings.screens.quibla.QiblaCompose
-import com.github.meypod.al_azan.ui.settings.screens.quibla.QiblaLocation
-import com.github.meypod.al_azan.ui.settings.screens.reminder.Reminders
-import com.github.meypod.al_azan.ui.settings.screens.sound.Muazzin
-import com.github.meypod.al_azan.ui.settings.screens.sound.NotificationSound
-import com.github.meypod.al_azan.ui.settings.screens.sound.SoundAndNotification
-import com.github.meypod.al_azan.ui.settings.screens.widget.WidgetSetting
+import com.github.meypod.al_azan.Navigation.ABOUT_US
+import com.github.meypod.al_azan.Navigation.ADJUSTMENTS
+import com.github.meypod.al_azan.Navigation.ADVANCED
+import com.github.meypod.al_azan.Navigation.ADVANCED_CALCULATION_SETTINGS
+import com.github.meypod.al_azan.Navigation.AZAN_ALARM
+import com.github.meypod.al_azan.Navigation.BACKUP_SETTINGS
+import com.github.meypod.al_azan.Navigation.CALCULATION_SETTINGS
+import com.github.meypod.al_azan.Navigation.COUNTER
+import com.github.meypod.al_azan.Navigation.FIX_PROBLEMS_SETTINGS
+import com.github.meypod.al_azan.Navigation.INTERFACE_SETTINGS
+import com.github.meypod.al_azan.Navigation.INTRO_1
+import com.github.meypod.al_azan.Navigation.INTRO_2
+import com.github.meypod.al_azan.Navigation.INTRO_3
+import com.github.meypod.al_azan.Navigation.INTRO_4
+import com.github.meypod.al_azan.Navigation.INTRO_6
+import com.github.meypod.al_azan.Navigation.INTRO_7
+import com.github.meypod.al_azan.Navigation.INTRO_8
+import com.github.meypod.al_azan.Navigation.INTRO_9
+import com.github.meypod.al_azan.Navigation.LOCATION_LIST
+import com.github.meypod.al_azan.Navigation.LOCATION_SETTINGS
+import com.github.meypod.al_azan.Navigation.MAIN_SCREEN
+import com.github.meypod.al_azan.Navigation.MONTHLY_VIEW
+import com.github.meypod.al_azan.Navigation.MUAZZIN
+import com.github.meypod.al_azan.Navigation.NOTIFICATION_SOUND
+import com.github.meypod.al_azan.Navigation.QIBLA
+import com.github.meypod.al_azan.Navigation.QIBLA_COMPOSE
+import com.github.meypod.al_azan.Navigation.QIBLA_LOCATION
+import com.github.meypod.al_azan.Navigation.REMINDER
+import com.github.meypod.al_azan.Navigation.SETTINGS
+import com.github.meypod.al_azan.Navigation.SOUND_SETTINGS
+import com.github.meypod.al_azan.Navigation.WIDGET_SETTINGS
+import com.github.meypod.al_azan.screens.aboutus.AboutUs
+import com.github.meypod.al_azan.screens.alarm.AzanAlarm
+import com.github.meypod.al_azan.screens.intro.Intro1
+import com.github.meypod.al_azan.screens.intro.Intro2
+import com.github.meypod.al_azan.screens.intro.Intro3
+import com.github.meypod.al_azan.screens.intro.Intro4
+import com.github.meypod.al_azan.screens.intro.Intro6
+import com.github.meypod.al_azan.screens.intro.Intro7
+import com.github.meypod.al_azan.screens.intro.Intro8
+import com.github.meypod.al_azan.screens.intro.Intro9
+import com.github.meypod.al_azan.screens.mainpage.MainScreen
+import com.github.meypod.al_azan.screens.monthly_view.MonthlyView
+import com.github.meypod.al_azan.screens.reminder.Reminders
+import com.github.meypod.al_azan.screens.settings.screens.Settings
+import com.github.meypod.al_azan.screens.settings.screens.backup.Backup
+import com.github.meypod.al_azan.screens.settings.screens.calculation.Adjustments
+import com.github.meypod.al_azan.screens.settings.screens.calculation.AdvancedCalculation
+import com.github.meypod.al_azan.screens.settings.screens.calculation.Calculation
+import com.github.meypod.al_azan.screens.settings.screens.counter.Counter
+import com.github.meypod.al_azan.screens.settings.screens.fixproblem.Advanced
+import com.github.meypod.al_azan.screens.settings.screens.fixproblem.FixProblems
+import com.github.meypod.al_azan.screens.settings.screens.interfacesettings.InterfaceSettings
+import com.github.meypod.al_azan.screens.settings.screens.locations.Location
+import com.github.meypod.al_azan.screens.settings.screens.locations.LocationList
+import com.github.meypod.al_azan.screens.settings.screens.quibla.Qibla
+import com.github.meypod.al_azan.screens.settings.screens.quibla.QiblaCompose
+import com.github.meypod.al_azan.screens.settings.screens.quibla.QiblaLocation
+import com.github.meypod.al_azan.screens.settings.screens.sound.Muazzin
+import com.github.meypod.al_azan.screens.settings.screens.sound.NotificationSound
+import com.github.meypod.al_azan.screens.settings.screens.sound.SoundAndNotification
+import com.github.meypod.al_azan.screens.settings.screens.widget.WidgetSetting
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
 class MainActivity : ComponentActivity() {
@@ -83,11 +85,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination = INTRO_1) {
         composable(INTRO_1) { Intro1(navController) }
         composable(INTRO_2) { Intro2(navController) }
@@ -120,7 +120,5 @@ fun MyApp() {
         composable(QIBLA_LOCATION) { QiblaLocation(navController) }
         composable(QIBLA_COMPOSE) { QiblaCompose(navController) }
         composable(AZAN_ALARM) { AzanAlarm(navController) }
-
     }
 }
-
