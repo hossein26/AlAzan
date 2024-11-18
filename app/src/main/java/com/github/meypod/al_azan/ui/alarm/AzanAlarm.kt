@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +39,7 @@ import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
@@ -58,11 +63,18 @@ fun AzanAlarm(
     navController: NavController = rememberNavController(),
     modifier: Modifier = Modifier,
 ) {
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp
+    val density = LocalDensity.current.density
+    val initialOffsetY = remember(screenHeightDp) {
+        (screenHeightDp * 0.4f * density) // 90% of screen height in pixels
+    }
+
     val scope = rememberCoroutineScope()
     //val swipeOffset = remember { Animatable(0f) }
-    val screenHeight = 900f
-    val offset = getBottomOffset().value
-    val offsetY = remember { Animatable(900f) }
+    val screenHeight = initialOffsetY
+    val offsetY = remember { Animatable(initialOffsetY) }
+    val isDragging = remember { mutableStateOf(false) }
 
     val cornerRadius = remember { Animatable(60f) }
     val size = remember { Animatable(244f) }
@@ -70,13 +82,22 @@ fun AzanAlarm(
     var showButton by remember { mutableStateOf(true) }
     var showText by remember { mutableStateOf(true) }
     AlAzanTheme {
-        if (showDialog){
+        LaunchedEffect(showDialog) {
+            if (showDialog){
+                showButton = false
+                showText = false
+            }else{
+                showButton = true
+                showText = true
+            }
+        }
+        if (showDialog) {
             Dialog(
                 properties = DialogProperties(
                     usePlatformDefaultWidth = false
                 ),
                 onDismissRequest = {
-                    //showDialog = false
+                    showDialog = false
                 }
             ) {
                 AlarmDialog()
@@ -85,6 +106,7 @@ fun AzanAlarm(
         Box(
             modifier = modifier
                 .fillMaxSize()
+                .padding(WindowInsets.navigationBars.asPaddingValues())
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
@@ -135,11 +157,12 @@ fun AzanAlarm(
             }
 
             if (showButton) {
+
                 Column(
                     modifier
                         //.align(Alignment.CenterHorizontally)
-                        .fillMaxSize()
-                        //.padding(bottom = dimensionResource(R.dimen.last_card_padding_intro))
+                        .fillMaxSize().padding(bottom = dimensionResource(R.dimen.padding_extra_extra_large))
+                    //.padding(bottom = dimensionResource(R.dimen.last_card_padding_intro))
                     ,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
@@ -149,40 +172,77 @@ fun AzanAlarm(
                         color = Color.White,
                         fontSize = 14.sp,
                         style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier
-                            //.align(Alignment.CenterHorizontally)
-                           // .padding(bottom = 12.dp)
+                        modifier = Modifier.offset {
+                            IntOffset(
+                                x = 0,
+                                y = initialOffsetY.roundToInt()
+                            )
+                        }
+                        //.align(Alignment.CenterHorizontally)
+                        // .padding(bottom = 12.dp)
                     )
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
                             //.align(Alignment.CenterHorizontally)
                             .size(width = size.value.dp, height = 100.dp)
-                            .offset{ IntOffset(x = 0, y = offsetY.value.roundToInt()) }
+                            .offset { IntOffset(x = 0, y = offsetY.value.roundToInt()) }
                             .background(
                                 MaterialTheme.colorScheme.surfaceContainer,
                                 RoundedCornerShape(cornerRadius.value)
                             )
                             .pointerInput(Unit) {
                                 detectDragGesturesAfterLongPress(
-                                    onDragEnd = {
-                                       //  Animate to the final position
+                                    onDragCancel = {
                                         scope.launch {
-                                            val targetOffset = offsetY.value/2.2f
-                                            // if (swipeOffset.value > 150f) 300f else 0f
                                             offsetY.animateTo(
-                                                targetValue = targetOffset,
+                                                targetValue = initialOffsetY, // Reset to original position
+                                                animationSpec = tween(300)
+                                            )
+                                        }
+                                        scope.launch {
+                                            cornerRadius.animateTo(
+                                                targetValue = size.value * 0.5f, // Half of the size for a perfect circle
+                                                animationSpec = tween(durationMillis = 1)
+                                            )
+                                            size.animateTo(
+                                                targetValue = 244f, // Final size when swiped up
                                                 animationSpec = tween(durationMillis = 300)
                                             )
                                         }
-                                        showButton = false
-                                        showDialog = true
-                                        scope.launch {
-                                            offsetY.animateTo(screenHeight, animationSpec = tween(500))
-                                        }
 
+                                        isDragging.value = false
+                                    },
+                                    onDragEnd = {
+                                        if (isDragging.value) {
+                                            //  Animate to the final position
+                                            if (offsetY.value < screenHeight * 0.7) {
+                                                scope.launch {
+                                                    showDialog = true
+
+                                                    val targetOffset = offsetY.value / 2.2f
+                                                    // if (swipeOffset.value > 150f) 300f else 0f
+                                                    offsetY.animateTo(
+                                                        targetValue = screenHeight,
+                                                        animationSpec = tween(durationMillis = 300)
+                                                    )
+                                                }
+                                            }else{
+                                                scope.launch {
+                                                    showDialog = false
+
+                                                    offsetY.animateTo(
+                                                        targetValue = initialOffsetY,
+                                                        animationSpec = tween(300)
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        isDragging.value = false
                                     },
                                     onDragStart = {
+                                        isDragging.value = true
                                         showText = false
                                         scope.launch {
                                             cornerRadius.animateTo(
@@ -196,10 +256,16 @@ fun AzanAlarm(
                                         }
                                     },
                                     onDrag = { _, dragAmount ->
+                                        isDragging.value = true
                                         val newOffset = offsetY.value + dragAmount.y
                                         scope.launch {
                                             //swipeOffset.snapTo(swipeOffset.value + dragAmount.y)
-                                            offsetY.snapTo(newOffset.coerceIn(screenHeight / 10, screenHeight))
+                                            offsetY.snapTo(
+                                                newOffset.coerceIn(
+                                                    screenHeight / 10,
+                                                    screenHeight
+                                                )
+                                            )
                                         }
 //
                                     }
@@ -217,7 +283,7 @@ fun AzanAlarm(
                                     .size(32.dp)
                                     .align(Alignment.CenterVertically)
                             )
-                            if (showText){
+                            if (showText) {
                                 Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
                                 Text(
                                     text = "Dismiss",
