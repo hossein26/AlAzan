@@ -13,15 +13,6 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="SwipeUpAnimation">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="SwipeToCircleAnimation">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="SwipeToCircleOnHoldAnimation">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="AzanAlarm">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2024-11-17T21:51:25.134228Z">
@@ -34,6 +25,15 @@
         <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="AzanAlarm (1)">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="SlideUpAnimationScreen">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="SwipeToCenterScreen">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="SwipeToCenterWithReturn">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

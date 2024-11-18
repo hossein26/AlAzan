@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,10 +34,13 @@ import androidx.compose.ui.graphics.ImageShader
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -46,6 +50,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @Composable
 @Preview(showBackground = true)
@@ -53,13 +58,17 @@ fun AzanAlarm(
     navController: NavController = rememberNavController(),
     modifier: Modifier = Modifier,
 ) {
-    val swipeOffset = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
+    //val swipeOffset = remember { Animatable(0f) }
+    val screenHeight = 900f
+    val offset = getBottomOffset().value
+    val offsetY = remember { Animatable(900f) }
 
     val cornerRadius = remember { Animatable(60f) }
     val size = remember { Animatable(244f) }
     var showDialog by remember { mutableStateOf(false) }
     var showButton by remember { mutableStateOf(true) }
+    var showText by remember { mutableStateOf(true) }
     AlAzanTheme {
         if (showDialog){
             Dialog(
@@ -128,24 +137,28 @@ fun AzanAlarm(
             if (showButton) {
                 Column(
                     modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = dimensionResource(R.dimen.last_card_padding_intro))
+                        //.align(Alignment.CenterHorizontally)
+                        .fillMaxSize()
+                        //.padding(bottom = dimensionResource(R.dimen.last_card_padding_intro))
+                    ,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Swipe Up For More Option",
+                        text = "Hold and Swipe Up For More Option",
                         color = Color.White,
                         fontSize = 14.sp,
                         style = MaterialTheme.typography.labelLarge,
-                        modifier = modifier
-                            .align(Alignment.CenterHorizontally)
-                            .padding(bottom = 12.dp)
+                        modifier = Modifier
+                            //.align(Alignment.CenterHorizontally)
+                           // .padding(bottom = 12.dp)
                     )
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
+                            //.align(Alignment.CenterHorizontally)
                             .size(width = size.value.dp, height = 100.dp)
-                            .offset(y = swipeOffset.value.dp)
+                            .offset{ IntOffset(x = 0, y = offsetY.value.roundToInt()) }
                             .background(
                                 MaterialTheme.colorScheme.surfaceContainer,
                                 RoundedCornerShape(cornerRadius.value)
@@ -153,23 +166,24 @@ fun AzanAlarm(
                             .pointerInput(Unit) {
                                 detectDragGesturesAfterLongPress(
                                     onDragEnd = {
-                                        // Animate to the final position
+                                       //  Animate to the final position
                                         scope.launch {
-                                            val targetOffset = swipeOffset.value/2.2f
+                                            val targetOffset = offsetY.value/2.2f
                                             // if (swipeOffset.value > 150f) 300f else 0f
-                                            swipeOffset.animateTo(
+                                            offsetY.animateTo(
                                                 targetValue = targetOffset,
                                                 animationSpec = tween(durationMillis = 300)
                                             )
                                         }
                                         showButton = false
                                         showDialog = true
+                                        scope.launch {
+                                            offsetY.animateTo(screenHeight, animationSpec = tween(500))
+                                        }
 
                                     },
-                                    onDrag = { _, dragAmount ->
-                                        scope.launch {
-                                            swipeOffset.snapTo(swipeOffset.value + dragAmount.y)
-                                        }
+                                    onDragStart = {
+                                        showText = false
                                         scope.launch {
                                             cornerRadius.animateTo(
                                                 targetValue = size.value / 0.5f, // Half of the size for a perfect circle
@@ -180,6 +194,14 @@ fun AzanAlarm(
                                                 animationSpec = tween(durationMillis = 300)
                                             )
                                         }
+                                    },
+                                    onDrag = { _, dragAmount ->
+                                        val newOffset = offsetY.value + dragAmount.y
+                                        scope.launch {
+                                            //swipeOffset.snapTo(swipeOffset.value + dragAmount.y)
+                                            offsetY.snapTo(newOffset.coerceIn(screenHeight / 10, screenHeight))
+                                        }
+//
                                     }
 
                                 )
@@ -195,14 +217,17 @@ fun AzanAlarm(
                                     .size(32.dp)
                                     .align(Alignment.CenterVertically)
                             )
-                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                            Text(
-                                text = "Dismiss",
-                                color = MaterialTheme.colorScheme.primary,
-                                fontSize = 28.sp,
-                                style = MaterialTheme.typography.headlineMedium,
-                                modifier = Modifier
-                            )
+                            if (showText){
+                                Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                                Text(
+                                    text = "Dismiss",
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontSize = 28.sp,
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    modifier = Modifier
+                                )
+                            }
+
                         }
 
 
@@ -212,6 +237,20 @@ fun AzanAlarm(
 
         }
     }
+}
+
+@Composable
+fun getScreenHeight(): Dp {
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp / 8
+    return screenHeightDp.dp
+}
+
+@Composable
+fun getBottomOffset(): Dp {
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenLayout // Total height in dp
+    return screenHeightDp.dp // Convert to pixels
 }
 
 
