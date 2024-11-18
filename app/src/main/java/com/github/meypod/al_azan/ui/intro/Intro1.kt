@@ -16,9 +16,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -51,7 +49,7 @@ import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_2
 import com.github.meypod.al_azan.general_components.Navigation.MAIN_SCREEN
 import com.github.meypod.al_azan.general_components.SampleBottomSheetMenuIntro
-import com.github.meypod.al_azan.ui.components.PatternBackgroundBox
+import com.github.meypod.al_azan.ui.components.IslamicPatternBackground
 import com.github.meypod.al_azan.ui.components.SkipSetupDialog
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
@@ -99,133 +97,138 @@ fun Intro1(navController: NavController = rememberNavController(), modifier: Mod
             start = Offset(0f, 0f), // Starting point
             end = Offset(0f, 10000f) // Ending point
         )
-        PatternBackgroundBox {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                //.verticalScroll(rememberScrollState())
+        ) {
             Column(
-                Modifier
+                modifier = modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .background(gradientBrush)
+                    //.offset(y = 16.dp)
             ) {
-                Column(
+                Text(
+                    text = stringResource(R.string.welcome_to),
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineMedium,
                     modifier = modifier
-                        .fillMaxSize()
-                        .background(gradientBrush)
-                        .offset(y = 16.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.welcome_to),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = modifier
-                            .padding(top = 50.dp)
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = stringResource(R.string.al_azan_app),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        style = MaterialTheme.typography.displayMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = modifier
-                            .padding(top = dimensionResource(R.dimen.padding_medium))
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                    Image(
-                        modifier = modifier
-                            .align(Alignment.CenterHorizontally)
-                            .width(244.dp)
-                            .height(311.dp)
-                            .padding(top = dimensionResource(R.dimen.padding_medium)),
-                        painter = painterResource(R.drawable.mosque_img),
-                        contentDescription = "mosque",
-                        contentScale = ContentScale.Fit
-                    )
-
-                }
+                        .padding(top = 50.dp)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = stringResource(R.string.al_azan_app),
+                    color = Color.White,
+                    style = MaterialTheme.typography.displayMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = modifier
+                        .padding(top = dimensionResource(R.dimen.padding_medium))
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+                Image(
+                    modifier = modifier
+                        .align(Alignment.CenterHorizontally)
+                        .width(244.dp)
+                        .height(311.dp)
+                        .offset(y = 20.dp)
+                        .padding(top = dimensionResource(R.dimen.padding_medium)),
+                    painter = painterResource(R.drawable.mosque_img),
+                    contentDescription = "mosque",
+                    contentScale = ContentScale.Fit
+                )
                 Spacer(
                     Modifier
                         .shadow(elevation = dimensionResource(R.dimen.shadow_elevation_high))
                         .fillMaxWidth()
-                        .height(0.5.dp)
+                        .height(1.dp)
                         .background(Color(0xFF00585A))
                 )
-                Column(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .padding(top = dimensionResource(R.dimen.padding_extra_large)),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(R.string.language_choose),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = modifier
-                            .fillMaxWidth()
-                    )
-                    Spacer(modifier.size(dimensionResource(R.dimen.spacer_large)))
-                    SampleBottomSheetMenuIntro(
-                        items = listOfLanguage
-                    ) {}
-                    Spacer(
-                        modifier
-                            .fillMaxWidth()
-                            .height(dimensionResource(R.dimen.spacer_extra_large))
-                    )
-                    Button(
-                        onClick = {
-                            navController.navigate(INTRO_2)
-                        },
-                        modifier = modifier
-                            .widthIn(min = dimensionResource(R.dimen.start_button_width))
-                            .requiredHeight(dimensionResource(R.dimen.start_button_height))
-                            .clip(shape = CircleShape),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
-                        )
+                IslamicPatternBackground(color = Color(0xFF00585A)) {
 
-                    ) {
-                        Text(
-                            text = stringResource(R.string.get_started),
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.labelLarge,
-                            modifier = Modifier
-                                .wrapContentWidth()
-                                .wrapContentHeight(align = Alignment.CenterVertically)
-                        )
-                    }
-                    Spacer(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(dimensionResource(R.dimen.spacer_large))
-                    )
-                    TextButton(
-                        onClick = {
-                            showSkipDialog = true
-                            timeLeft = 3
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    Column(
                         modifier = modifier
-                            .align(Alignment.CenterHorizontally)
-                            .wrapContentSize()
+                            .fillMaxSize()
+                            .padding(top = dimensionResource(R.dimen.padding_extra_large)),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = stringResource(R.string.skip),
+                            text = stringResource(R.string.language_choose),
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.labelLarge,
+                            style = MaterialTheme.typography.titleMedium,
                             modifier = modifier
-                                .width(dimensionResource(R.dimen.skip_button_width))
-                                .wrapContentHeight(align = Alignment.CenterVertically)
+                                .fillMaxWidth()
                         )
+                        Spacer(modifier.size(dimensionResource(R.dimen.spacer_large)))
+                        SampleBottomSheetMenuIntro(
+                            items = listOfLanguage
+                        ) {}
+                        Spacer(
+                            modifier
+                                .fillMaxWidth()
+                                .height(dimensionResource(R.dimen.spacer_extra_large))
+                        )
+                        Button(
+                            onClick = {
+                                navController.navigate(INTRO_2)
+                            },
+                            modifier = modifier
+                                .widthIn(min = dimensionResource(R.dimen.start_button_width))
+                                .requiredHeight(dimensionResource(R.dimen.start_button_height))
+                                .clip(shape = CircleShape),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                            )
+
+                        ) {
+                            Text(
+                                text = stringResource(R.string.get_started),
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                textAlign = TextAlign.Center,
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = Modifier
+                                    .wrapContentWidth()
+                                    .wrapContentHeight(align = Alignment.CenterVertically)
+                            )
+                        }
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(dimensionResource(R.dimen.spacer_large))
+                        )
+                        TextButton(
+                            onClick = {
+                                showSkipDialog = true
+                                timeLeft = 3
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                            modifier = modifier
+                                .align(Alignment.CenterHorizontally)
+                                .wrapContentSize()
+                        ) {
+                            Text(
+                                text = stringResource(R.string.skip),
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = modifier
+                                    .width(dimensionResource(R.dimen.skip_button_width))
+                                    .wrapContentHeight(align = Alignment.CenterVertically)
+                            )
+                        }
                     }
+
                 }
             }
         }
+
+
     }
 }
+
 
 
 

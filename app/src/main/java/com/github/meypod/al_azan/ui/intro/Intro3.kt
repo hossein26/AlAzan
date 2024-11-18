@@ -24,9 +24,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -43,193 +48,201 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_4
-import com.github.meypod.al_azan.general_components.Navigation.LOCATION_LIST
+import com.github.meypod.al_azan.general_components.Navigation.INTRO_6
 import com.github.meypod.al_azan.general_components.Navigation.MAIN_SCREEN
 import com.github.meypod.al_azan.ui.components.Footer
-import com.github.meypod.al_azan.ui.components.PatternBackgroundBox
+import com.github.meypod.al_azan.ui.components.IslamicPatternBackground
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
 @Preview
 @Composable
 fun Intro3(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
+    var showLocationDialog by remember { mutableStateOf(false) }
     AlAzanTheme {
-        PatternBackgroundBox {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-            ) {
-                Column(
-                    modifier = modifier
-                        .align(Alignment.TopCenter)
-                        .padding(dimensionResource(R.dimen.screen_padding)),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(R.string.location),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                        ),
-                        modifier = Modifier
-                            .wrapContentHeight(align = Alignment.CenterVertically)
-                            .padding(dimensionResource(R.dimen.text_padding))
-                    )
-                    Row(
-                        modifier = modifier
-                            .padding(
-                                top = dimensionResource(R.dimen.horizontal_title_padding),
-                                bottom = dimensionResource(R.dimen.horizontal_title_padding)
-                            ),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.vaadin_globe),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
-                        )
-                        Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
-                        Text(
-                            text = stringResource(R.string.whats_horizon),
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold
-                            ),
-                            modifier = Modifier
-                                .padding(dimensionResource(R.dimen.text_padding)),
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.information_slab_circle),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                        Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Text(
-                                text = buildAnnotatedString {
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            fontSize = 14.sp
-                                        )
-                                    ) { append(stringResource(R.string.horizon_desc_1)) }
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = MaterialTheme.colorScheme.onSurface,
 
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    ) { append(stringResource(R.string.horizon_desc_2)) }
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            fontSize = 14.sp
-                                        )
-                                    ) { append(stringResource(R.string.horizon_desc_3)) }
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    ) { append(stringResource(R.string.horizon_desc_4)) }
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            fontSize = 14.sp
-                                        )
-                                    ) { append(stringResource(R.string.horizon_desc_5)) }
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            fontSize = 14.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    ) { append(stringResource(R.string.horizon_desc_6)) }
-                                },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                            )
-                        }
-                    }
-                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
+        IslamicPatternBackground(
+            color = Color(0xFF00585A)
+        )  {
+            Box{
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(dimensionResource(R.dimen.screen_padding))
+                ) {
+                    Column(
+                        modifier = modifier
+                            .align(Alignment.TopCenter)
+                        ,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column(
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_top_screen)))
+                        Text(
+                            text = stringResource(R.string.location),
+                            color = Color.White,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.headlineMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                            ),
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .wrapContentHeight(align = Alignment.CenterVertically)
+                                .padding(dimensionResource(R.dimen.text_padding))
+                        )
+                        Row(
+                            modifier = modifier
+                                .padding(
+                                    top = dimensionResource(R.dimen.horizontal_title_padding),
+                                    bottom = dimensionResource(R.dimen.horizontal_title_padding)
+                                ),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.vaadin_globe),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .requiredSize(size = dimensionResource(R.dimen.icon_size_intro))
+                            )
+                            Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                             Text(
-                                text = stringResource(R.string.location_list),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleSmall.copy(
-                                    fontWeight = FontWeight.Medium
+                                text = stringResource(R.string.whats_horizon),
+                                color = Color.White,
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold
                                 ),
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .padding(dimensionResource(R.dimen.text_padding)),
                             )
-                            Spacer(modifier.size(dimensionResource(R.dimen.spacer_medium)))
-                            Text(
-                                text = stringResource(R.string.empty_location),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurface,
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                                .padding(dimensionResource(R.dimen.card_content_padding))
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.information_slab_circle),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
-                            Spacer(modifier.size(dimensionResource(R.dimen.spacer_large)))
-                            Button(
-                                onClick = {
-                                    navController.navigate(LOCATION_LIST)
-                                },
-                                shape = CircleShape,
-                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                            Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
+                            Column(
                                 modifier = Modifier
-                                    .widthIn(min = dimensionResource(R.dimen.button_icon_width))
-                                    .heightIn(min = dimensionResource(R.dimen.button_icon_height))
-                                    .align(Alignment.CenterHorizontally)
+                                    .fillMaxWidth()
                             ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(
-                                        8.dp,
-                                        Alignment.CenterHorizontally
-                                    ),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier
-                                        .wrapContentWidth()
-                                        .wrapContentHeight(align = Alignment.CenterVertically)
-                                ) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.ic_plus),
-                                        contentDescription = stringResource(R.string.icon),
-                                        modifier = Modifier
-                                            .requiredSize(size = dimensionResource(R.dimen.plus_icon_size)),
-                                        colorFilter = ColorFilter.tint(
-                                            MaterialTheme.colorScheme.onPrimary
-                                        ),
+                                Text(
+                                    text = buildAnnotatedString {
+                                        withStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.onSurface,
+                                                fontSize = 14.sp
+                                            )
+                                        ) { append(stringResource(R.string.horizon_desc_1)) }
+                                        withStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.onSurface,
 
+                                                fontSize = 14.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        ) { append(stringResource(R.string.horizon_desc_2)) }
+                                        withStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.onSurface,
+                                                fontSize = 14.sp
+                                            )
+                                        ) { append(stringResource(R.string.horizon_desc_3)) }
+                                        withStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.onSurface,
+                                                fontSize = 14.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        ) { append(stringResource(R.string.horizon_desc_4)) }
+                                        withStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.onSurface,
+                                                fontSize = 14.sp
+                                            )
+                                        ) { append(stringResource(R.string.horizon_desc_5)) }
+                                        withStyle(
+                                            style = SpanStyle(
+                                                color = MaterialTheme.colorScheme.onSurface,
+                                                fontSize = 14.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        ) { append(stringResource(R.string.horizon_desc_6)) }
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                )
+                            }
+                        }
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                                .padding(dimensionResource(R.dimen.card_content_padding))
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.location_list),
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    style = MaterialTheme.typography.titleSmall.copy(
+                                        fontWeight = FontWeight.Medium
+                                    ),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                )
+                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_medium)))
+                                Text(
+                                    text = stringResource(R.string.empty_location),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                )
+                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_large)))
+                                Button(
+                                    onClick = {
+                                        navController.navigate(INTRO_6)
+                                    },
+                                    shape = CircleShape,
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                    modifier = Modifier
+                                        .widthIn(min = dimensionResource(R.dimen.button_icon_width))
+                                        .heightIn(min = dimensionResource(R.dimen.button_icon_height))
+                                        .align(Alignment.CenterHorizontally)
+                                ) {
+                                    Row(
+                                        horizontalArrangement = Arrangement.spacedBy(
+                                            8.dp,
+                                            Alignment.CenterHorizontally
+                                        ),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier
+                                            .wrapContentWidth()
+                                            .wrapContentHeight(align = Alignment.CenterVertically)
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.ic_plus),
+                                            contentDescription = stringResource(R.string.icon),
+                                            modifier = Modifier
+                                                .requiredSize(size = dimensionResource(R.dimen.plus_icon_size)),
+                                            colorFilter = ColorFilter.tint(
+                                                MaterialTheme.colorScheme.onPrimary
+                                            ),
+
+                                            )
+                                        Text(
+                                            text = stringResource(R.string.add_new_location),
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            textAlign = TextAlign.Center,
+                                            style = MaterialTheme.typography.labelLarge,
                                         )
-                                    Text(
-                                        text = stringResource(R.string.add_new_location),
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.labelLarge,
-                                    )
+                                    }
                                 }
                             }
                         }
@@ -246,6 +259,7 @@ fun Intro3(navController: NavController = rememberNavController(), modifier: Mod
                     }
                 )
             }
+
         }
 
     }

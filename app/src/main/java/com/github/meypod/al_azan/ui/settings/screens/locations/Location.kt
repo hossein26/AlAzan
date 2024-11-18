@@ -40,7 +40,7 @@ import com.github.meypod.al_azan.ui.components.LocationDialog
 import com.github.meypod.al_azan.ui.settings.components.SampleTopAppBar
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
-@Preview
+@Preview(fontScale = 2f)
 @Composable
 fun Location(
     navController: NavController = rememberNavController(),
@@ -87,7 +87,7 @@ fun Location(
                         )
                         Spacer(modifier.padding(dimensionResource(R.dimen.spacer_icon_text)))
                         Text(
-                            modifier = modifier.widthIn(max = dimensionResource(R.dimen.max_width_text)),
+                            modifier = modifier.widthIn(max = dimensionResource(R.dimen.max_width)),
                             text = stringResource(R.string.locations_desc),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant

@@ -206,7 +206,7 @@ fun AdvancedCalculation(
                         )
                         Spacer(modifier.padding(dimensionResource(R.dimen.spacer_extra_small)))
                         Text(
-                            modifier = modifier.width(dimensionResource(R.dimen.max_width_text)),
+                            modifier = modifier.width(dimensionResource(R.dimen.max_width)),
                             text = stringResource(R.string.shafaq_desc),
                             fontSize = 14.sp,
                             style = MaterialTheme.typography.bodyMedium,
@@ -224,7 +224,7 @@ fun AdvancedCalculation(
                         ) { }
                     }
                 }
-                Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding)))
+                Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding_intro)))
             }
         }
     }

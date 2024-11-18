@@ -39,7 +39,7 @@ import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
 @Preview
 @Composable
-fun Sound(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
+fun SoundAndNotification(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     val azanNotifList = listOf(
         "Fajr", "Sunrise", "Dhuhr", "Asr", "Sunset", "Maghrib", "Isha", "Midnight", "Tahajjud"
     )
@@ -287,7 +287,7 @@ fun Sound(navController: NavController = rememberNavController(), modifier: Modi
                         onCheckedChange = {}
                     )
                 }
-                Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding)))
+                Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding_intro)))
             }
         }
 

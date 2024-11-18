@@ -138,7 +138,7 @@ fun Calculation(
                         SampleBottomSheetMenu(
                             items = calculationMethod
                         ) { }
-                        Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items_small)))
+                        Spacer(modifier = modifier.size(dimensionResource(R.dimen.spacer_items)))
                         Row(
                             modifier = modifier
                                 .fillMaxWidth()
@@ -370,7 +370,7 @@ fun Calculation(
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
-                Spacer(modifier = modifier.padding(dimensionResource(R.dimen.last_card_padding)))
+                Spacer(modifier = modifier.padding(dimensionResource(R.dimen.last_card_padding_intro)))
 
             }
         }

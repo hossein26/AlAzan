@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -43,6 +44,7 @@ fun MonthlyView(
     navController: NavController = rememberNavController(),
     modifier: Modifier = Modifier,
 ) {
+    val scrollState = rememberLazyListState()
     val listHeader = listOf(
         "Date",
         stringResource(R.string.fajr),
@@ -103,7 +105,7 @@ fun MonthlyView(
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(bottom = dimensionResource(R.dimen.last_card_padding))
+                        .padding(bottom = dimensionResource(R.dimen.last_card_padding_intro))
                         .clip(RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
                         .background(color = MaterialTheme.colorScheme.surfaceContainer)
                         .padding(dimensionResource(R.dimen.card_content_padding))
@@ -174,14 +176,18 @@ fun MonthlyView(
                         listHeader
                     )
                     Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                    LazyColumn {
-                        items(azanTimeList) { azanTime ->
-                            ItemList(azanTime)
+                    Box(
+
+                    ){
+                        LazyColumn(
+                            modifier = modifier.fillMaxWidth(),
+                            state = scrollState
+                        ) {
+                            items(azanTimeList) { azanTime ->
+                                ItemList(azanTime)
+                            }
                         }
                     }
-
-
-
                 }
                 Button(
                     modifier = modifier.align(Alignment.BottomCenter),

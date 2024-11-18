@@ -1,8 +1,14 @@
 package com.github.meypod.al_azan.ui.settings.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -39,11 +45,20 @@ fun Settings(
             SampleTopAppBar(stringResource(R.string.settings), navController = navController)
         }
     ) { innerPadding ->
-        SettingsList(
-            innerPadding = innerPadding,
-            settingItems = settingItems,
-            navController = navController
-        )
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surfaceContainer)
+                .padding(innerPadding)
+                .padding(dimensionResource(R.dimen.settings_Item_content_padding))
+
+        ){
+            SettingsList(
+                settingItems = settingItems,
+                navController = navController
+            )
+        }
+
     }
 
 }

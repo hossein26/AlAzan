@@ -1,9 +1,11 @@
 package com.github.meypod.al_azan.ui.settings.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -18,10 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.github.meypod.al_azan.R
@@ -30,6 +34,9 @@ import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SampleTopAppBar(title: String,icon: Int? = null,navController: NavController) {
+    val fontScale = LocalConfiguration.current.fontScale
+    val topBarHeight = if (fontScale >= 1.5f) 90.dp else 72.dp
+    val iconSize = if (fontScale >= 1.5f) 24.dp else 18.dp
     AlAzanTheme {
         CenterAlignedTopAppBar(
             title = {
@@ -46,7 +53,7 @@ fun SampleTopAppBar(title: String,icon: Int? = null,navController: NavController
                         title, textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 16.sp,
+                        fontSize = 22.sp,
                         maxLines = 1
                     )
                 }
@@ -60,19 +67,26 @@ fun SampleTopAppBar(title: String,icon: Int? = null,navController: NavController
                 scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
             ),
             navigationIcon = {
-                IconButton(onClick = {
-                    navController.popBackStack()
-                }) {
-                    Icon(
-                        painter = painterResource(R.drawable.icon_back),
-                        contentDescription = stringResource(R.string.back),
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
+                Column(
+                    modifier = Modifier,
+                    verticalArrangement = Arrangement.Center
+                ){
+                    IconButton(modifier = Modifier.fillMaxHeight(), onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            modifier = Modifier.size(iconSize),
+                            painter = painterResource(R.drawable.icon_back),
+                            contentDescription = stringResource(R.string.back),
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
+
             },
             modifier = Modifier
                 .wrapContentWidth()
-                .heightIn(min =  dimensionResource(R.dimen.top_app_bar_height))
+                .height(topBarHeight)
                 .shadow(elevation = dimensionResource(R.dimen.shadow_elevation_low)),
         )
     }

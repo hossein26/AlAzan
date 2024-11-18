@@ -32,8 +32,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 import com.github.meypod.al_azan.R
+import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -89,9 +89,7 @@ fun SampleBottomSheetMenu(
             if (showBottomSheet) {
                 ModalBottomSheet(
                     onDismissRequest = { showBottomSheet = false },
-                    sheetState = rememberModalBottomSheetState(
-                        //initialValue = ModalBottomSheetValue.Expanded
-                    )
+                    sheetState = rememberModalBottomSheetState()
                 ) {
                     Column(
                         modifier = Modifier

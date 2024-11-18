@@ -29,6 +29,9 @@ object Navigation {
     const val MONTHLY_VIEW = "monthly_view"
     const val ADVANCED = "advanced"
     const val LOCATION_LIST = "location_list"
-
-
+    const val MUAZZIN = "muazzin"
+    const val NOTIFICATION_SOUND = "notification_sound"
+    const val QIBLA_LOCATION = "qibla_location"
+    const val QIBLA_COMPOSE = "qibla_compose"
+    const val AZAN_ALARM = "azan_alarm"
 }

@@ -53,6 +53,7 @@ fun ReminderDialog(modifier: Modifier = Modifier) {
 
         Card(
             modifier = modifier
+                .padding(dimensionResource(R.dimen.dialog_screen_padding))
                 .clip(RoundedCornerShape(dimensionResource(R.dimen.dialog_radius)))
                 .background(MaterialTheme.colorScheme.surfaceContainer),
             shape = MaterialTheme.shapes.medium,

@@ -39,13 +39,15 @@ fun SampleNavigationDrawer(navItems: List<NavItem>, navController: NavController
 
     ) {
         item {
+            Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.spacer_extra_medium)))
             Box(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                    .height(dimensionResource(R.dimen.top_app_bar_height))
+                    .height(dimensionResource(R.dimen.button_large))
                     .fillMaxWidth(),
                 contentAlignment = Alignment.CenterEnd
             ) {
+
                 IconButton(onClick = {
                     scope.launch { drawerState.close() }
                 }) {
@@ -56,8 +58,6 @@ fun SampleNavigationDrawer(navItems: List<NavItem>, navController: NavController
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
-
-
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacer_large)))
         }

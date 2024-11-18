@@ -45,6 +45,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -58,6 +59,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.general_components.Navigation.ABOUT_US
+import com.github.meypod.al_azan.general_components.Navigation.AZAN_ALARM
 import com.github.meypod.al_azan.general_components.Navigation.COUNTER
 import com.github.meypod.al_azan.general_components.Navigation.MONTHLY_VIEW
 import com.github.meypod.al_azan.general_components.Navigation.QIBLA
@@ -73,9 +75,6 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-    (
-    //fontScale = 2f
-)
 @Preview
 fun perv() {
     AlAzanTheme {
@@ -91,6 +90,9 @@ fun MainScreen(
     modifier: Modifier = Modifier,
 ) {
 
+    val fontScale = LocalConfiguration.current.fontScale
+    val topBarHeight = if (fontScale >= 1.5f) 90.dp else 72.dp
+    val iconSize = if (fontScale >= 1.5f) 36.dp else 24.dp
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val currentDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -147,19 +149,26 @@ fun MainScreen(
                             }
                         },
                         navigationIcon = {
-                            IconButton(onClick = {
-                                scope.launch {
-                                    drawerState.open() // Open the drawer when clicked
+                            Column(
+                                modifier = modifier.fillMaxHeight(),
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                IconButton(onClick = {
+                                    scope.launch {
+                                        drawerState.open() // Open the drawer when clicked
+                                    }
+                                }) {
+                                    Icon(
+                                        modifier = modifier.size(iconSize),
+                                        imageVector = Icons.Default.Menu,
+                                        contentDescription = stringResource(R.string.menu)
+                                    )
                                 }
-                            }) {
-                                Icon(
-                                    Icons.Default.Menu,
-                                    contentDescription = stringResource(R.string.menu)
-                                )
                             }
+
                         },
                         modifier = Modifier
-                            .height(dimensionResource(R.dimen.top_app_bar_height))
+                            .height(topBarHeight)
                             .background(MaterialTheme.colorScheme.surface)
                             .shadow(elevation = dimensionResource(R.dimen.shadow_elevation_low))
                     )
@@ -355,6 +364,9 @@ fun PrayerTime(modifier: Modifier, navController: NavController) {
                         )
                         Box(
                             modifier
+                                .clickable {
+                                    navController.navigate(AZAN_ALARM)
+                                }
                                 .heightIn(min = dimensionResource(R.dimen.next_prayer_height))
                                 .align(Alignment.CenterHorizontally)
                                 .border(

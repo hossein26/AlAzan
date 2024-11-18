@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Footer -->
-    <dimen name="footer_height">120dp</dimen>
+    <dimen name="footer_height">100dp</dimen>
     <dimen name="footer_top_padding">12dp</dimen>
     <dimen name="footer_button_width">80dp</dimen>
     <dimen name="footer_button_height">40dp</dimen>
@@ -35,13 +35,13 @@
     <!-- text padding -->
     <dimen name="text_padding">8dp</dimen>
     <dimen name="text_padding_large">16dp</dimen>
-    <dimen name="max_width_text">600dp</dimen>
+    <dimen name="max_width">600dp</dimen>
 
 
     <!-- cards -->
     <dimen name="card_radius">12dp</dimen>
     <dimen name="card_content_padding">12dp</dimen>
-    <dimen name="last_card_padding">60dp</dimen>
+    <dimen name="last_card_padding_intro">68dp</dimen>
     <dimen name="qibla_card_size">144dp</dimen>
 
     <!-- items -->
@@ -53,7 +53,7 @@
     <dimen name="spacer_items">6dp</dimen>
     <dimen name="spacer_items_large">8dp</dimen>
     <dimen name="spacer_items_extra_large">10dp</dimen>
-    <dimen name="item_border_width">1dp</dimen>
+    <dimen name="item_border_width">0.5dp</dimen>
     <dimen name="item_border_width_large">2dp</dimen>
     <dimen name="gps_text_height">32dp</dimen>
     <dimen name="text_view_height">40dp</dimen>
@@ -78,6 +78,7 @@
     <dimen name="spacer_large">16dp</dimen>
     <dimen name="spacer_extra_large">32dp</dimen>
     <dimen name="spacer_extra_extra_large">64dp</dimen>"
+    <dimen name="spacer_top_screen">16dp</dimen>
 
     <!-- Button sizes -->
     <dimen name="button_icon_width">182dp</dimen>
@@ -85,6 +86,7 @@
     <dimen name="switch_start_padding">8dp</dimen>
     <dimen name="day_of_week_height">32dp</dimen>
     <dimen name="day_of_week_width">71dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
 
     <!-- bottom sheet -->
     <dimen name="bottom_sheet_height">40dp</dimen>"
@@ -110,7 +112,7 @@
     <dimen name="horizontal_padding">18dp</dimen>
     <dimen name="padding_extra_large">32dp</dimen>
     <dimen name="padding_extra_extra_large">64dp</dimen>"
-    <dimen name="fab_padding">16dp</dimen>
+    <dimen name="fab_padding">32dp</dimen>
 
     <!-- Specific padding for components -->
     <dimen name="padding_card">16dp</dimen>
@@ -167,7 +169,7 @@
     <dimen name="dialog_border_radius">28dp</dimen>
 
     <!-- top app bar -->
-    <dimen name="top_app_bar_height">44dp</dimen>
+    <dimen name="top_app_bar_height">68dp</dimen>
 
     <!-- list item -->
     <dimen name="list_item_stroke_padding">12dp</dimen>

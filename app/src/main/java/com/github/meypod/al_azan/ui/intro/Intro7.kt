@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,12 +48,15 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_8
+import com.github.meypod.al_azan.general_components.Navigation.MAIN_SCREEN
+import com.github.meypod.al_azan.general_components.Navigation.MUAZZIN
+import com.github.meypod.al_azan.general_components.Navigation.NOTIFICATION_SOUND
 import com.github.meypod.al_azan.ui.components.Footer
-import com.github.meypod.al_azan.ui.components.PatternBackgroundBox
+import com.github.meypod.al_azan.ui.components.IslamicPatternBackground
 import com.github.meypod.al_azan.ui.settings.screens.sound.SoundDialog
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
-@Preview
+@Preview(device = "spec:parent=pixel_2,navigation=buttons", showSystemUi = true)
 @Composable
 fun Intro7(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     AlAzanTheme {
@@ -66,11 +72,16 @@ fun Intro7(navController: NavController = rememberNavController(), modifier: Mod
             stringResource(R.string.tahajjud),
         )
         var showDialog by remember { mutableStateOf(false) }
-        PatternBackgroundBox {
+
+        IslamicPatternBackground(
+            color = Color(0xFF00585A)
+        ) {
 
             if (showDialog) {
                 Dialog(
-                    content = {  SoundDialog() },
+                    content = {
+                        SoundDialog { showDialog = false }
+                    },
                     properties = DialogProperties(
                         usePlatformDefaultWidth = false
                     ),
@@ -78,10 +89,13 @@ fun Intro7(navController: NavController = rememberNavController(), modifier: Mod
                 )
             }
 
-            Box(
+            BoxWithConstraints(
                 modifier = modifier
                     .fillMaxSize()
             ) {
+                val maxWidthDp = with(LocalDensity.current) { maxWidth }
+                val isWide = maxWidthDp > dimensionResource(R.dimen.max_width)
+
                 Column(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
@@ -89,9 +103,10 @@ fun Intro7(navController: NavController = rememberNavController(), modifier: Mod
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_top_screen)))
                     Text(
                         text = stringResource(R.string.azan_and_notification),
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = Color.White,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.Bold
@@ -117,7 +132,7 @@ fun Intro7(navController: NavController = rememberNavController(), modifier: Mod
                         Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
                             text = stringResource(R.string.favorite_muazzin),
-                            color = MaterialTheme.colorScheme.onBackground,
+                            color = Color.White,
                             style = MaterialTheme.typography.labelMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
@@ -127,128 +142,28 @@ fun Intro7(navController: NavController = rememberNavController(), modifier: Mod
                                 .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
-                    ) {
-                        Column {
-                            Text(
-                                text = stringResource(R.string.muazzin),
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                style = MaterialTheme.typography.titleSmall.copy(
-                                    MaterialTheme.colorScheme.onSurface
-                                )
-                            )
-                            Text(
-                                text = stringResource(R.string.muazzin_name_1),
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primaryContainer)
-                            )
-                        }
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_navigation_next),
-                            contentDescription = null,
-                            modifier = modifier
-                                .size(dimensionResource(R.dimen.icon_size_small))
-                                .align(Alignment.CenterEnd),
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
-                    ) {
-                        Column {
-                            Text(
-                                text = stringResource(R.string.notification_sound),
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                style = MaterialTheme.typography.titleSmall.copy(
-                                    MaterialTheme.colorScheme.onSurface
-                                )
-                            )
-                            Text(
-                                text = stringResource(R.string.bling),
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primaryContainer)
-                            )
-                        }
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_navigation_next),
-                            contentDescription = null,
-                            modifier = modifier
-                                .size(dimensionResource(R.dimen.icon_size_small))
-                                .align(Alignment.CenterEnd),
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
+                    if (isWide) {
+                        Row(
+                            modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = stringResource(R.string.azan_and_notification),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleSmall,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                            )
-                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
-                            Text(
-                                text = stringResource(R.string.notification_sound_desc),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-
-                            )
-                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
-                            Column {
-                                azanNotifList.forEach { item ->
-                                    AzanAndNotifItem(item) {
-                                        showDialog = true
-                                    }
-                                }
-                            }
-                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_medium)))
-                            Row {
-                                Icon(
-                                    painter = painterResource(R.drawable.information_slab_circle_gray),
-                                    contentDescription = "",
-                                    tint = MaterialTheme.colorScheme.onSurface,
-                                )
-                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
-                                Text(
-                                    stringResource(R.string.tahajjud_desc),
-                                    style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurface),
-                                    modifier = modifier
-                                        .align(Alignment.CenterVertically)
-                                )
-                            }
+                            PartTwo(modifier,
+                                azanNotifList,
+                                { showDialog = true })
+                            Spacer(Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                            PartOne(modifier = modifier.weight(1f), navController = navController)
                         }
 
+                    } else {
+                        PartOne(modifier = modifier, navController = navController)
+                        Spacer(Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                        PartTwo(
+                            modifier,
+                            azanNotifList,
+                            { showDialog = true })
                     }
-                    Spacer(modifier = modifier.padding(dimensionResource(R.dimen.last_card_padding)))
+
+                    Spacer(modifier = modifier.padding(dimensionResource(R.dimen.last_card_padding_intro)))
 
                 }
                 Footer(
@@ -257,19 +172,167 @@ fun Intro7(navController: NavController = rememberNavController(), modifier: Mod
                     onBackClick = {
                         navController.popBackStack()
                     },
-                    onSkipClick = {}
+                    onSkipClick = {
+                        navController.navigate(MAIN_SCREEN)
+                    }
                 )
             }
         }
-
     }
 
+}
+
+
+@Composable
+private fun PartTwo(
+    modifier: Modifier,
+    azanNotifList: List<String>,
+    showDialog: () -> Unit,
+) {
+    Column(
+        modifier
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                .padding(dimensionResource(R.dimen.card_content_padding))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.azan_and_notification),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+                Spacer(Modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
+                Text(
+                    text = stringResource(R.string.notification_sound_desc),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .fillMaxWidth()
+
+                )
+
+                Column {
+                    azanNotifList.forEach { item ->
+                        ResponsiveLayout(
+                            title = item,
+                            showDialog = { showDialog() }
+                        )
+                    }
+                }
+                Row {
+                    Icon(
+                        painter = painterResource(R.drawable.information_slab_circle_gray),
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Spacer(Modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
+                    Text(
+                        stringResource(R.string.tahajjud_desc),
+                        style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurface),
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun PartOne(navController: NavController, modifier: Modifier) {
+    Column(
+        modifier
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                .padding(dimensionResource(R.dimen.card_content_padding))
+                .clickable {
+                    navController.navigate(MUAZZIN)
+                }
+        ) {
+            Column {
+                Text(
+                    text = stringResource(R.string.muazzin),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    style = MaterialTheme.typography.titleSmall.copy(
+                        MaterialTheme.colorScheme.onSurface
+                    )
+                )
+                Text(
+                    text = stringResource(R.string.muazzin_name_1),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primaryContainer)
+                )
+            }
+
+            Icon(
+                painter = painterResource(id = R.drawable.ic_navigation_next),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(dimensionResource(R.dimen.icon_size_small))
+                    .align(Alignment.CenterEnd),
+                tint = MaterialTheme.colorScheme.onSurface
+            )
+        }
+        Spacer(Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                .padding(dimensionResource(R.dimen.card_content_padding))
+                .clickable {
+                    navController.navigate(NOTIFICATION_SOUND)
+                }
+        ) {
+            Column {
+                Text(
+                    text = stringResource(R.string.notification_sound),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    style = MaterialTheme.typography.titleSmall.copy(
+                        MaterialTheme.colorScheme.onSurface
+                    )
+                )
+                Text(
+                    text = stringResource(R.string.bling),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primaryContainer)
+                )
+            }
+
+            Icon(
+                painter = painterResource(id = R.drawable.ic_navigation_next),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(dimensionResource(R.dimen.icon_size_small))
+                    .align(Alignment.CenterEnd),
+                tint = MaterialTheme.colorScheme.onSurface
+            )
+        }
+    }
 }
 
 @Composable
 fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
     var notifState by remember { mutableStateOf(ToggleableState.Off) }
     var azanState by remember { mutableStateOf(ToggleableState.Off) }
+
     Column {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -277,70 +340,69 @@ fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Text(
-                text = title,
-                color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight.Medium
-                ),
-            )
-
+            Row {
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Medium
+                    ),
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = stringResource(R.string.notification),
-                            color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        TriStateCheckbox(
-                            state = notifState,
-                            onClick = {
-                                notifState = when (notifState) {
-                                    ToggleableState.On -> ToggleableState.Off
-                                    ToggleableState.Off -> ToggleableState.Indeterminate
-                                    ToggleableState.Indeterminate -> ToggleableState.On
-                                }
+                    Text(
+                        text = stringResource(R.string.notification),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    TriStateCheckbox(
+                        state = notifState,
+                        onClick = {
+                            notifState = when (notifState) {
+                                ToggleableState.On -> ToggleableState.Off
+                                ToggleableState.Off -> ToggleableState.Indeterminate
+                                ToggleableState.Indeterminate -> ToggleableState.On
                             }
-                        )
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-
-                        ) {
-                        Text(
-                            text = stringResource(R.string.azan),
-                            color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        TriStateCheckbox(
-                            state = azanState,
-                            onClick = {
-                                azanState = when (azanState) {
-                                    ToggleableState.On -> ToggleableState.Off
-                                    ToggleableState.Off -> ToggleableState.Indeterminate
-                                    ToggleableState.Indeterminate -> ToggleableState.On
-                                }
-                            }
-                        )
-                    }
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_settings),
-                        contentDescription = stringResource(R.string.settings),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier
-                            .size(dimensionResource(R.dimen.icon_size_small))
-                            .clickable {
-                                showDialog()
-                            }
+                        }
                     )
                 }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
 
-
+                    ) {
+                    Text(
+                        text = stringResource(R.string.azan),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    TriStateCheckbox(
+                        state = azanState,
+                        onClick = {
+                            azanState = when (azanState) {
+                                ToggleableState.On -> ToggleableState.Off
+                                ToggleableState.Off -> ToggleableState.Indeterminate
+                                ToggleableState.Indeterminate -> ToggleableState.On
+                            }
+                        }
+                    )
+                }
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_settings),
+                    contentDescription = stringResource(R.string.settings),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .size(dimensionResource(R.dimen.icon_size_small))
+                        .clickable {
+                            showDialog()
+                        }
+                )
+            }
 
 
         }
@@ -352,6 +414,122 @@ fun AzanAndNotifItem(title: String, showDialog: () -> Unit) {
     }
 }
 
+@Composable
+fun ResponsiveLayout(
+    title: String,
+    showDialog: () -> Unit,
+) {
+    val fontScale = LocalDensity.current.fontScale
+    val isCompact = fontScale >= 1.4f
+
+
+    Column {
+        if (isCompact) {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TitleRow(title)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    NotificationRow()
+                    AzanRow()
+                    SettingsIcon(showDialog)
+                }
+            }
+        } else {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TitleRow(title)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    NotificationRow()
+                    AzanRow()
+                    SettingsIcon(showDialog)
+                }
+            }
+        }
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_extra_small)),
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
+    }
+}
+
+
+@Composable
+fun TitleRow(title: String) {
+    Text(
+        text = title,
+        color = MaterialTheme.colorScheme.onSurface,
+        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+    )
+}
+
+@Composable
+fun NotificationRow() {
+    var notifState by remember { mutableStateOf(ToggleableState.Off) }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = stringResource(R.string.notification),
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodySmall
+        )
+        TriStateCheckbox(
+            state = notifState,
+            onClick = {
+                notifState = when (notifState) {
+                    ToggleableState.On -> ToggleableState.Off
+                    ToggleableState.Off -> ToggleableState.Indeterminate
+                    ToggleableState.Indeterminate -> ToggleableState.On
+                }
+            }
+        )
+    }
+}
+
+@Composable
+fun AzanRow() {
+    var azanState by remember { mutableStateOf(ToggleableState.Off) }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = stringResource(R.string.azan),
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodySmall
+        )
+        TriStateCheckbox(
+            state = azanState,
+            onClick = {
+
+               azanState = when (azanState) {
+                    ToggleableState.On -> ToggleableState.Off
+                    ToggleableState.Off -> ToggleableState.Indeterminate
+                    ToggleableState.Indeterminate -> ToggleableState.On
+                }
+
+            }
+        )
+    }
+}
+
+@Composable
+fun SettingsIcon(showDialog: () -> Unit) {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_settings),
+        contentDescription = stringResource(R.string.settings),
+        tint = MaterialTheme.colorScheme.onSurface,
+        modifier = Modifier
+            .size(dimensionResource(R.dimen.icon_medium))
+            .clickable { showDialog() }
+    )
+}
 
 
 

@@ -1,13 +1,14 @@
 package com.github.meypod.al_azan.ui.settings.screens.counter
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,65 +58,81 @@ fun Counter(navController: NavController = rememberNavController(), modifier: Mo
                 )
             }
         ) { innerPadding ->
-            Column(
-                modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-                    .background(
-                        MaterialTheme.colorScheme.background, shape = RoundedCornerShape(
-                            dimensionResource(R.dimen.card_radius)
-                        )
-                    )
-                    .padding(dimensionResource(R.dimen.item_content_padding))
-            ) {
-                Row(
+            Box(modifier.fillMaxSize()) {
+                Column(
                     modifier
+                        .padding(innerPadding)
+                        .fillMaxSize()
                         .background(
-                            MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(
-                                dimensionResource(R.dimen.item_border_radius)
+                            MaterialTheme.colorScheme.background, shape = RoundedCornerShape(
+                                dimensionResource(R.dimen.card_radius)
                             )
                         )
-                        .fillMaxWidth()
-                        .height(48.dp)
-                        .padding(dimensionResource(R.dimen.card_content_padding))
+                        .padding(dimensionResource(R.dimen.item_content_padding))
                 ) {
-                    SwitchWithText(
-                        "Show Last Change Time",
-                        "",
-                        onCheckedChange = {},
-                        isChecked = false
-                    )
-                }
-                Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                LazyColumn(
-                    modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .clip(RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                        .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                ) {
-                    items(6) {
-                        LastChangeTime()
+                    Row(
+                        modifier
+                            .background(
+                                MaterialTheme.colorScheme.surfaceContainer,
+                                shape = RoundedCornerShape(
+                                    dimensionResource(R.dimen.item_border_radius)
+                                )
+                            )
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = dimensionResource(R.dimen.card_content_padding),
+                                vertical = dimensionResource(R.dimen.padding_small)
+                            )
+                    ) {
+                        SwitchWithText(
+                            "Show Last Change Time",
+                            onCheckedChange = {},
+                            isChecked = false
+                        )
                     }
-                    item { Spacer(modifier.padding(dimensionResource(R.dimen.spacer_small))) }
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                    LazyColumn(
+                        modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .clip(RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                    ) {
+                        items(6) {
+                            LastChangeTime()
+                        }
+                        item { Spacer(modifier.padding(dimensionResource(R.dimen.spacer_small))) }
+                    }
+                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_large)))
+                    Button(
+                        onClick = {},
+                        modifier
+                            .align(Alignment.CenterHorizontally),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary
+                        )
+                    ) {
+                        Text(
+                            text = "Add Custom Counter",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.labelLarge,
+                            fontSize = 14.sp
+                        )
+                    }
                 }
-                Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items_large)))
-                Button(
-                    onClick = {},
-                    modifier
-                        .align(Alignment.CenterHorizontally),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    )
+                FloatingActionButton(
+                    modifier = Modifier
+                        .padding(dimensionResource(R.dimen.fab_padding))
+                        .align(Alignment.BottomEnd),
+                    onClick = {}
                 ) {
-                    Text(
-                        text = "Add Custom Counter",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.labelLarge,
-                        fontSize = 14.sp
+                    Icon(
+                        painter = painterResource(R.drawable.ic_counter),
+                        contentDescription = ""
                     )
                 }
             }
+
         }
     }
 
@@ -124,23 +141,23 @@ fun Counter(navController: NavController = rememberNavController(), modifier: Mo
 
 @Composable
 fun LastChangeTime(modifier: Modifier = Modifier) {
-    var value by remember { mutableStateOf("") }
+    val value by remember { mutableStateOf("") }
     Row(
         modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .padding(dimensionResource(R.dimen.item_content_padding)),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_dots),
             contentDescription = "Move",
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(dimensionResource(R.dimen.icon_medium))
         )
+        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_small)))
         SmallFloatingActionButton(
             modifier = Modifier
-                .size(dimensionResource(R.dimen.plus_minus_size))
+                .size(dimensionResource(R.dimen.fab_size))
                 .shadow(
                     elevation = dimensionResource(R.dimen.shadow_elevation_low),
                     shape = MaterialTheme.shapes.medium
@@ -155,65 +172,31 @@ fun LastChangeTime(modifier: Modifier = Modifier) {
                 contentDescription = stringResource(R.string.minus)
             )
         }
-
-//        TextField(
-//            value = value + 5,
-//            onValueChange = { value = it },
-//            label = { Text("Password") },
-//            isError = true,
-//            modifier = modifier.border(width = 1.dp, color = Color.Red),
-//            supportingText = {
-//                Text(
-//                    "Must be at least 8 characters",
-//                    color = Color.Gray
-//                )
-//            }
-//        )
-
-        OutlinedTextField(
-            value = value + 6,
-            onValueChange = {},
-            label = { Text("Fajr", color = MaterialTheme.colorScheme.outline) },
-            modifier = modifier
-                .height(60.dp)
+        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_small)))
+        Box(
+            modifier
+                .weight(1f)
                 .fillMaxWidth()
-                .padding(8.dp),
-            textStyle = TextStyle(
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                color = MaterialTheme.colorScheme.onSurface
-            ),
-            singleLine = true
-        )
+                .height(64.dp)
+                .offset(y = -4.dp)
+        ) {
+            OutlinedTextField(
+                value = value + 6,
+                onValueChange = {},
+                label = { Text("Fajr", color = MaterialTheme.colorScheme.outline) },
+                modifier = modifier.fillMaxWidth(),
+                textStyle = TextStyle(
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                shape = RoundedCornerShape(dimensionResource(R.dimen.item_border_radius)),
+                singleLine = true
+            )
+        }
 
-//        TextField(
-//            value = value + "6",
-//            onValueChange = { value = it },
-//            label = { Text("Fajr", color = MaterialTheme.colorScheme.outline) },
-//            placeholder = { Text("00:00") },
-//            modifier = modifier
-//                .heightIn(min = 40.dp, max = 80.dp)
-//                .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
-//                .weight(1f),
-//            shape = RoundedCornerShape(4.dp),
-//            textStyle = TextStyle(
-//                fontSize = 14.sp,
-//                color = MaterialTheme.colorScheme.onSurface
-//            ),
-//
-//            supportingText = {
-//                Text(
-//                    "Must be at least 8 characters",
-//                    color = MaterialTheme.colorScheme.outline
-//                )
-//            },
-//            singleLine = true,
-//
-//        )
-
+        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_small)))
         SmallFloatingActionButton(
             modifier = Modifier
-                .size(dimensionResource(R.dimen.plus_minus_size))
+                .size(dimensionResource(R.dimen.fab_size))
                 .shadow(
                     elevation = dimensionResource(R.dimen.shadow_elevation_low),
                     shape = MaterialTheme.shapes.medium
@@ -228,8 +211,6 @@ fun LastChangeTime(modifier: Modifier = Modifier) {
                 contentDescription = stringResource(R.string.plus)
             )
         }
-
-
     }
 
 }

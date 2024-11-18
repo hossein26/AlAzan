@@ -35,6 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.github.meypod.al_azan.R
+import com.github.meypod.al_azan.general_components.Navigation.QIBLA_COMPOSE
+import com.github.meypod.al_azan.general_components.Navigation.QIBLA_LOCATION
 import com.github.meypod.al_azan.ui.settings.components.SampleTopAppBar
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
@@ -145,13 +147,16 @@ fun Qibla(navController: NavController = rememberNavController(), modifier: Modi
                             Box(
                                 modifier
                                     .fillMaxSize()
-                                    .background(MaterialTheme.colorScheme.background),
+                                    .clickable {
+                                        navController.navigate(QIBLA_LOCATION)
+                                    }
+                                    .background(MaterialTheme.colorScheme.surfaceContainer),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(
-                                    painter = painterResource(R.drawable.ic_location),
+                                    painter = painterResource(R.drawable.map_location),
                                     contentDescription = "",
-                                    tint = MaterialTheme.colorScheme.onBackground,
+                                    tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier
                                         .size(dimensionResource(R.dimen.qibla_icon_size))
                                 )
@@ -185,13 +190,16 @@ fun Qibla(navController: NavController = rememberNavController(), modifier: Modi
                             Box(
                                 modifier
                                     .fillMaxSize()
-                                    .background(MaterialTheme.colorScheme.background),
+                                    .clickable {
+                                        navController.navigate(QIBLA_COMPOSE)
+                                    }
+                                    .background(MaterialTheme.colorScheme.surfaceContainer),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(
-                                    painter = painterResource(R.drawable.ic_compose_black),
+                                    painter = painterResource(R.drawable.compose),
                                     contentDescription = "",
-                                    tint = MaterialTheme.colorScheme.onBackground,
+                                    tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier
                                         .size(dimensionResource(R.dimen.qibla_icon_size))
                                 )

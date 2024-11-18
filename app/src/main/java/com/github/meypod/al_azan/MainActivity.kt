@@ -1,6 +1,5 @@
 package com.github.meypod.al_azan
 
-import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,6 +13,7 @@ import com.github.meypod.al_azan.general_components.Navigation.ABOUT_US
 import com.github.meypod.al_azan.general_components.Navigation.ADJUSTMENTS
 import com.github.meypod.al_azan.general_components.Navigation.ADVANCED
 import com.github.meypod.al_azan.general_components.Navigation.ADVANCED_CALCULATION_SETTINGS
+import com.github.meypod.al_azan.general_components.Navigation.AZAN_ALARM
 import com.github.meypod.al_azan.general_components.Navigation.BACKUP_SETTINGS
 import com.github.meypod.al_azan.general_components.Navigation.CALCULATION_SETTINGS
 import com.github.meypod.al_azan.general_components.Navigation.COUNTER
@@ -23,6 +23,7 @@ import com.github.meypod.al_azan.general_components.Navigation.INTRO_1
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_2
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_3
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_4
+import com.github.meypod.al_azan.general_components.Navigation.INTRO_6
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_7
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_8
 import com.github.meypod.al_azan.general_components.Navigation.INTRO_9
@@ -30,15 +31,21 @@ import com.github.meypod.al_azan.general_components.Navigation.LOCATION_LIST
 import com.github.meypod.al_azan.general_components.Navigation.LOCATION_SETTINGS
 import com.github.meypod.al_azan.general_components.Navigation.MAIN_SCREEN
 import com.github.meypod.al_azan.general_components.Navigation.MONTHLY_VIEW
+import com.github.meypod.al_azan.general_components.Navigation.MUAZZIN
+import com.github.meypod.al_azan.general_components.Navigation.NOTIFICATION_SOUND
 import com.github.meypod.al_azan.general_components.Navigation.QIBLA
+import com.github.meypod.al_azan.general_components.Navigation.QIBLA_COMPOSE
+import com.github.meypod.al_azan.general_components.Navigation.QIBLA_LOCATION
 import com.github.meypod.al_azan.general_components.Navigation.REMINDER
 import com.github.meypod.al_azan.general_components.Navigation.SETTINGS
 import com.github.meypod.al_azan.general_components.Navigation.SOUND_SETTINGS
 import com.github.meypod.al_azan.general_components.Navigation.WIDGET_SETTINGS
+import com.github.meypod.al_azan.ui.alarm.AzanAlarm
 import com.github.meypod.al_azan.ui.intro.Intro1
 import com.github.meypod.al_azan.ui.intro.Intro2
 import com.github.meypod.al_azan.ui.intro.Intro3
 import com.github.meypod.al_azan.ui.intro.Intro4
+import com.github.meypod.al_azan.ui.intro.Intro6
 import com.github.meypod.al_azan.ui.intro.Intro7
 import com.github.meypod.al_azan.ui.intro.Intro8
 import com.github.meypod.al_azan.ui.intro.Intro9
@@ -55,13 +62,16 @@ import com.github.meypod.al_azan.ui.settings.screens.interfacesettings.Interface
 import com.github.meypod.al_azan.ui.settings.screens.locations.Location
 import com.github.meypod.al_azan.ui.settings.screens.locations.LocationList
 import com.github.meypod.al_azan.ui.settings.screens.quibla.Qibla
+import com.github.meypod.al_azan.ui.settings.screens.quibla.QiblaCompose
+import com.github.meypod.al_azan.ui.settings.screens.quibla.QiblaLocation
 import com.github.meypod.al_azan.ui.settings.screens.reminder.Reminders
-import com.github.meypod.al_azan.ui.settings.screens.sound.Sound
+import com.github.meypod.al_azan.ui.settings.screens.sound.Muazzin
+import com.github.meypod.al_azan.ui.settings.screens.sound.NotificationSound
+import com.github.meypod.al_azan.ui.settings.screens.sound.SoundAndNotification
 import com.github.meypod.al_azan.ui.settings.screens.widget.WidgetSetting
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -83,6 +93,7 @@ fun MyApp() {
         composable(INTRO_2) { Intro2(navController) }
         composable(INTRO_3) { Intro3(navController) }
         composable(INTRO_4) { Intro4(navController) }
+        composable(INTRO_6) { Intro6(navController) }
         composable(INTRO_7) { Intro7(navController) }
         composable(INTRO_8) { Intro8(navController) }
         composable(INTRO_9) { Intro9(navController) }
@@ -93,7 +104,7 @@ fun MyApp() {
         composable(COUNTER) { Counter(navController) }
         composable(SETTINGS) { Settings(navController) }
         composable(ABOUT_US) { AboutUs(navController) }
-        composable(SOUND_SETTINGS) { Sound(navController) }
+        composable(SOUND_SETTINGS) { SoundAndNotification(navController) }
         composable(CALCULATION_SETTINGS) { Calculation(navController) }
         composable(LOCATION_SETTINGS) { Location(navController) }
         composable(FIX_PROBLEMS_SETTINGS) { FixProblems(navController) }
@@ -104,6 +115,11 @@ fun MyApp() {
         composable(MONTHLY_VIEW) { MonthlyView(navController) }
         composable(ADVANCED) { Advanced(navController) }
         composable(LOCATION_LIST) { LocationList(navController = navController) }
+        composable(MUAZZIN) { Muazzin(navController) }
+        composable(NOTIFICATION_SOUND) { NotificationSound(navController) }
+        composable(QIBLA_LOCATION) { QiblaLocation(navController) }
+        composable(QIBLA_COMPOSE) { QiblaCompose(navController) }
+        composable(AZAN_ALARM) { AzanAlarm(navController) }
 
     }
 }

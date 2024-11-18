@@ -105,7 +105,7 @@ fun FixProblems(navController: NavController = rememberNavController(), modifier
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            modifier = modifier.padding(dimensionResource(R.dimen.item_content_padding)).widthIn(max = dimensionResource(R.dimen.max_width_text)),
+                            modifier = modifier.padding(dimensionResource(R.dimen.item_content_padding)).widthIn(max = dimensionResource(R.dimen.max_width)),
                             text = stringResource(R.string.help_app_running_desc),
                             fontSize = 14.sp,
                             style = MaterialTheme.typography.bodyMedium,
@@ -175,7 +175,7 @@ fun FixProblems(navController: NavController = rememberNavController(), modifier
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            modifier = modifier.widthIn(max = dimensionResource(R.dimen.max_width_text)),
+                            modifier = modifier.widthIn(max = dimensionResource(R.dimen.max_width)),
                             text = stringResource(R.string.power_settings_desc),
                             fontSize = 14.sp,
                             style = MaterialTheme.typography.bodyMedium,
@@ -280,7 +280,7 @@ fun FixProblems(navController: NavController = rememberNavController(), modifier
                 }
 
                 Spacer(modifier
-                    .padding(dimensionResource(R.dimen.last_card_padding)))
+                    .padding(dimensionResource(R.dimen.last_card_padding_intro)))
 
             }
         }

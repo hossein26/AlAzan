@@ -369,7 +369,7 @@ fun InterfaceSettings(
 
                 }
 
-                Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding)))
+                Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding_intro)))
 
             }
         }

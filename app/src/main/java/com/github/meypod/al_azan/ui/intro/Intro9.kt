@@ -2,7 +2,8 @@ package com.github.meypod.al_azan.ui.intro
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,18 +42,23 @@ import androidx.navigation.compose.rememberNavController
 import com.github.meypod.al_azan.R
 import com.github.meypod.al_azan.general_components.Navigation.MAIN_SCREEN
 import com.github.meypod.al_azan.ui.components.Footer
-import com.github.meypod.al_azan.ui.components.PatternBackgroundBox
+import com.github.meypod.al_azan.ui.components.IslamicPatternBackground
 import com.github.meypod.al_azan.ui.theme.AlAzanTheme
 
 @Preview
+@Preview(device = "id:pixel_9_pro_fold")
 @Composable
 fun Intro9(navController: NavController = rememberNavController(), modifier: Modifier = Modifier) {
     AlAzanTheme {
-        PatternBackgroundBox {
-            Box(
+        IslamicPatternBackground(
+            color = Color(0xFF00585A)
+        ){
+            BoxWithConstraints(
                 modifier = modifier
                     .fillMaxSize()
             ) {
+                val maxWidthDp = with(LocalDensity.current) { maxWidth }
+                val isWide = maxWidthDp > dimensionResource(R.dimen.max_width)
                 Column(
                     modifier = modifier
                         .align(Alignment.TopCenter)
@@ -58,9 +66,10 @@ fun Intro9(navController: NavController = rememberNavController(), modifier: Mod
                         .padding(dimensionResource(R.dimen.screen_padding)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_top_screen)))
                     Text(
                         text = stringResource(R.string.battery_settings),
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = Color.White,
                         textAlign = TextAlign.Center,
                         style = TextStyle(
                             fontSize = 28.sp,
@@ -84,7 +93,7 @@ fun Intro9(navController: NavController = rememberNavController(), modifier: Mod
                         Spacer(modifier.padding(horizontal = dimensionResource(R.dimen.spacer_large_icon_text)))
                         Text(
                             text = stringResource(R.string.battery_settings_desc),
-                            color = MaterialTheme.colorScheme.onBackground,
+                            color = Color.White,
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
@@ -93,145 +102,22 @@ fun Intro9(navController: NavController = rememberNavController(), modifier: Mod
                                 .padding(dimensionResource(R.dimen.text_padding)),
                         )
                     }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
+                    if (isWide){
+                        Row(
+                            modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = stringResource(R.string.help_app_running),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleSmall.copy(
-                                    fontWeight = FontWeight.Medium
-                                ),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                            )
-                            Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                            Text(
-                                text = stringResource(R.string.help_app_running_desc),
-                                modifier = Modifier
-                                    .widthIn(max = dimensionResource(R.dimen.max_width_text))
-                                    .padding(horizontal = dimensionResource(R.dimen.text_padding)),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            )
-                            Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                            Column(
-                                modifier = modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Row {
-                                    Text(stringResource(R.string.state), style = MaterialTheme.typography.labelLarge.copy(
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    ))
-                                    Text(
-                                        stringResource(R.string.enabled),
-                                        style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.error)
-                                    )
-                                }
-                                Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
-                                Button(
-                                    onClick = {
-
-                                    },
-                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                    modifier = Modifier
-                                        .widthIn(min = dimensionResource(R.dimen.button_icon_width))
-                                        .wrapContentWidth()
-                                        .align(Alignment.CenterHorizontally)
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.open_battery_settings),
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.labelLarge,
-                                        modifier = Modifier
-                                            .wrapContentHeight(align = Alignment.CenterVertically)
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
-                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-                            .padding(dimensionResource(R.dimen.card_content_padding))
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Text(
-                                text = stringResource(R.string.power_settings),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleSmall.copy(
-                                    fontWeight = FontWeight.Medium
-                                ),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                            )
+                            PartTwo(modifier.weight(1f))
                             Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                            Text(
-                                text = stringResource(R.string.power_settings_desc),
-                                modifier = Modifier
-                                    .widthIn(max = dimensionResource(R.dimen.max_width_text)).padding(horizontal = dimensionResource(R.dimen.text_padding)),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            )
-                            Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                            Column(
-                                modifier = modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Button(
-                                    onClick = {
-
-                                    },
-                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                    modifier = Modifier
-                                        .widthIn(min = dimensionResource(R.dimen.button_icon_width))
-                                        .wrapContentHeight()
-                                        .align(Alignment.CenterHorizontally)
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.open_power_settings),
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.labelLarge,
-                                        modifier = Modifier
-                                            .wrapContentHeight(align = Alignment.CenterVertically)
-                                    )
-                                }
-                            }
-                            Spacer(modifier = modifier.padding(dimensionResource(R.dimen.spacer_items)))
-                            Row {
-                                Icon(
-                                    painter = painterResource(R.drawable.information_slab_circle_gray),
-                                    contentDescription = "",
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                Spacer(modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
-                                Text(
-                                    stringResource(R.string.samsung_devices_exception),
-                                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
-                                    modifier = modifier.align(Alignment.CenterVertically)
-                                )
-                            }
+                            PartOne(modifier.weight(1f))
                         }
+                    }else{
+                        PartOne(modifier)
+                        Spacer(modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                        PartTwo(modifier)
                     }
-                    Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding)))
+
+                    Spacer(modifier.padding(dimensionResource(R.dimen.last_card_padding_intro)))
 
                 }
 
@@ -248,6 +134,166 @@ fun Intro9(navController: NavController = rememberNavController(), modifier: Mod
 
         }
 
+    }
+
+}
+
+@Composable
+private fun PartTwo(modifier: Modifier) {
+    Column(modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                .padding(dimensionResource(R.dimen.card_content_padding))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.power_settings),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.titleSmall.copy(
+                        fontWeight = FontWeight.Medium
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+                Spacer(Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                Text(
+                    text = stringResource(R.string.power_settings_desc),
+                    modifier = Modifier
+                        .widthIn(max = dimensionResource(R.dimen.max_width))
+                        .padding(horizontal = dimensionResource(R.dimen.text_padding)),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+                Spacer(Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Button(
+                        onClick = {
+
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        modifier = Modifier
+                            .widthIn(min = dimensionResource(R.dimen.button_icon_width))
+                            .wrapContentHeight()
+                            .align(Alignment.CenterHorizontally)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.open_power_settings),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier
+                                .wrapContentHeight(align = Alignment.CenterVertically)
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                Row {
+                    Icon(
+                        painter = painterResource(R.drawable.information_slab_circle_gray),
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(Modifier.size(dimensionResource(R.dimen.spacer_small_icon_text)))
+                    Text(
+                        stringResource(R.string.samsung_devices_exception),
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
+            }
+        }
+    }
+
+}
+
+@Composable
+private fun PartOne(modifier: Modifier) {
+    Column(
+        modifier
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(dimensionResource(R.dimen.card_radius)))
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
+                .padding(dimensionResource(R.dimen.card_content_padding))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.help_app_running),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.titleSmall.copy(
+                        fontWeight = FontWeight.Medium
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                Text(
+                    text = stringResource(R.string.help_app_running_desc),
+                    modifier = Modifier
+                        .widthIn(max = dimensionResource(R.dimen.max_width))
+                        .padding(horizontal = dimensionResource(R.dimen.text_padding)),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+                Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.spacer_items)))
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            stringResource(R.string.state),
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        )
+                        Text(
+                            stringResource(R.string.enabled),
+                            style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.error)
+                        )
+                    }
+                    Spacer(modifier = Modifier.padding(dimensionResource(R.dimen.spacer_items_small)))
+                    Button(
+                        onClick = {
+
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        modifier = Modifier
+                            .widthIn(min = dimensionResource(R.dimen.button_icon_width))
+                            .wrapContentWidth()
+                            .align(Alignment.CenterHorizontally)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.open_battery_settings),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier
+                                .wrapContentHeight(align = Alignment.CenterVertically)
+                        )
+                    }
+                }
+            }
+        }
     }
 
 }

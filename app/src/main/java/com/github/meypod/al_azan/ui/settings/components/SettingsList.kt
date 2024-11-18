@@ -1,12 +1,9 @@
 package com.github.meypod.al_azan.ui.settings.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,20 +20,15 @@ import androidx.navigation.NavController
 import com.github.meypod.al_azan.R
 
 @Composable
-fun SettingsList(innerPadding: PaddingValues, navController: NavController, settingItems: List<SettingItem>){
+fun SettingsList(navController: NavController, settingItems: List<SettingItem>){
     LazyColumn(
         modifier = Modifier
-            .padding(innerPadding)
-            .background(MaterialTheme.colorScheme.surfaceContainer)
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(dimensionResource(R.dimen.settings_Item_content_padding))
     ) {
         items(settingItems) { item ->
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .clickable { navController.navigate(item.route) }
+                    .fillMaxSize()
                     .padding(dimensionResource(R.dimen.item_content_padding)), // Adjust vertical padding for spacing
                 verticalAlignment = Alignment.CenterVertically
             ) {

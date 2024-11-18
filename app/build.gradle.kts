@@ -62,6 +62,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("androidx.navigation:navigation-compose:2.8.2")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.10.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.14")
+    implementation(libs.androidx.room.ktx)
+
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
